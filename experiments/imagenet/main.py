@@ -30,8 +30,8 @@ if __name__ == '__main__':
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
     # identify batch_size and load data
-    batch_size = 4 # lookup_batch_size(args.model) or find_ideal_batch_size(args.model, args.nogpu, args.datadir)
-    from data_and_model_loading import load_data_and_model # import inits tensorflow, so only import now
+    batch_size = lookup_batch_size(args.model) or find_ideal_batch_size(args.model, args.nogpu, args.datadir)
+    from data_and_model_loading import load_data_and_model # import also inits tensorflow, so only import now
     model, ds, meta = load_data_and_model(args.datadir, args.model, batch_size=batch_size)
     meta['dataset'] = 'ImageNet (ILSVRC 2012)'
     meta['task'] = 'Inference'
@@ -57,6 +57,8 @@ if __name__ == '__main__':
 
     # evaluate on validation
     mlflow.log_param('n_samples', n_samples)
+    if os.path.isfile("/tmp/.codecarbon.lock"): # former CodeCarbon instance was not properly closed due to a fatal Python termination
+        os.remove("/tmp/.codecarbon.lock")
     tracker = OfflineEmissionsTracker(measure_power_secs=args.measure_power_secs, log_level='warning', country_iso_code="DEU")
     tracker.start()
     print_colored_block(f'STARTING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}')

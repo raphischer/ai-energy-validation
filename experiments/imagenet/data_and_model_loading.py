@@ -118,12 +118,14 @@ if __name__ == '__main__':
     parser.add_argument("--datadir", default="/data/d1/fischer_diss/imagenet")
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--max_batch_size", type=int, default=32)
-    parser.add_argument("--max_batches", type=int, default=4)
+    parser.add_argument("--max_batches", type=int, default=12)
     args = parser.parse_args()
+
+    mb = args.max_batches // 4 if os.environ["CUDA_VISIBLE_DEVICES"] == "-1" else args.max_batches
     
-    print('\n\ntesting', args.datadir, args.model, args.batch_size, '\n\n')
+    print('\n\ntesting', args.datadir, args.model, args.batch_size, "cude_vis_dev", os.environ["CUDA_VISIBLE_DEVICES"], '\n\n')
 
     model, ds, _ = load_data_and_model(args.datadir, args.model, batch_size=args.batch_size)
-    model.evaluate(ds.take(args.max_batch_size * args.max_batches // args.batch_size))
+    model.evaluate(ds.take(args.max_batch_size * mb // args.batch_size))
 
     sys.exit(0)
