@@ -16,15 +16,15 @@ models=("DenseNet121" "DenseNet169" "DenseNet201" "ResNet50" "ResNet101" "ResNet
         "VGG16" "VGG19" "ConvNeXtBase" "ConvNeXtSmall" "ConvNeXtTiny" "ConvNeXtLarge" "ConvNeXtXLarge")
 
 # Loop over all models and GPUs
-for g in "0" "1"
+for m in "${models[@]}"
 do
-    for m in "${models[@]}"
+    for g in "0"
     do
         # Keep trying the mlflow run until it succeeds
         while true
         do
             echo "Running model $m on GPU $g ..."
-            timeout 10800 mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P seconds=$1 -P nogpu=$g ./experiments/imagenet
+            timeout 18000 mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P seconds=$1 -P nogpu=$g ./experiments/imagenet
             
             # Check if the mlflow run succeeded (exit status 0)
             if [ $? -eq 0 ]; then
