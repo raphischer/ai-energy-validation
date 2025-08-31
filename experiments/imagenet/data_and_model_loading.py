@@ -103,7 +103,8 @@ def load_data_and_model(data_path, model_name=None, variant='imagenet2012', batc
     meta = {
         "batch_size": batch_size,
         "software": f'Tensorflow {tf.__version__}',
-        "architecture": get_processor_name()
+        "architecture": get_processor_name(),
+        "parameters": model.count_params(),
     }
     if gpu_devices: # override with GPU information
         meta["architecture"] = tf.config.experimental.get_device_details(gpu_devices[0]).get('device_name', 'Unknown GPU')
