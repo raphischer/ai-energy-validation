@@ -32,6 +32,7 @@ def lookup_batch_size(model):
             batch_sizes = json.load(bf)
             return batch_sizes[architecture][model]
     except Exception as e:
+        print('Could not lookup batch size:', e)
         return None
     
 def find_ideal_batch_size(model, nogpu, data_dir, max_tries=5):

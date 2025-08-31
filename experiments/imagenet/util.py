@@ -1,7 +1,6 @@
 import subprocess
 import platform
 import re
-import subprocess
 
 def execute(cmd):
     popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)

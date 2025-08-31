@@ -21,7 +21,7 @@ if __name__ == '__main__':
     parser.add_argument("--datadir", default="/data/d1/fischer_diss/imagenet")
     parser.add_argument("--measure_power_secs", default=0.5)
     parser.add_argument("--nogpu", type=int, default=0)
-    parser.add_argument("--seconds", type=int, default=0, help="number of seconds to profile model on a subset of the data -- 0 process complete")
+    parser.add_argument("--seconds", type=int, default=120, help="number of seconds to profile model on a subset of the data -- 0 process complete")
     args = parser.parse_args()
     mlflow.log_dict(args.__dict__, 'config.json')
     
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     model.evaluate(ds.take(1)) # init inference (often has some temporal overhead)
     n_samples = 50000
 
-    # given limit for evaluation, so only take a subset of the data
+    # given limit for evaluation, so only take a small subset of the data
     if args.seconds:
         t0 = time.time()
         model.evaluate(ds.take(1)) # first test a single batch
@@ -57,8 +57,6 @@ if __name__ == '__main__':
 
     # evaluate on validation
     mlflow.log_param('n_samples', n_samples)
-    if os.path.isfile("/tmp/.codecarbon.lock"): # former CodeCarbon instance was not properly closed due to a fatal Python termination
-        os.remove("/tmp/.codecarbon.lock")
     tracker = OfflineEmissionsTracker(measure_power_secs=args.measure_power_secs, log_level='warning', country_iso_code="DEU")
     tracker.start()
     print_colored_block(f'STARTING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}')
@@ -85,7 +83,6 @@ if __name__ == '__main__':
     eval_res['time_total'] = emission_data['duration'][0]
     eval_res['running_time'] = emission_data['duration'][0] / n_samples
     eval_res['power_draw'] = emission_data['energy_consumed'][0] * 3.6e6 / n_samples
-    eval_res['parameters'] = model.count_params()
 
     # log results
     for key, val in eval_res.items():
