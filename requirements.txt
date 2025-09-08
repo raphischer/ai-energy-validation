@@ -7,3 +7,4 @@ pillow
 pytesseract
 opencv-python
 plotly
+tqdm
