@@ -19,6 +19,7 @@ if __name__ == '__main__':
     parser.add_argument("--model", default="EfficientNetB0")
     parser.add_argument("--dataset", default=None)
     parser.add_argument("--datadir", default="/data/d1/fischer_diss/imagenet")
+    parser.add_argument("--batchsize", default=None)
     parser.add_argument("--measure_power_secs", default=0.5)
     parser.add_argument("--nogpu", type=int, default=0)
     parser.add_argument("--seconds", type=int, default=120, help="number of seconds to profile model on a subset of the data -- 0 process complete")
@@ -34,7 +35,10 @@ if __name__ == '__main__':
     # load tracker before importing tensorflow!
     tracker = OfflineEmissionsTracker(measure_power_secs=args.measure_power_secs, log_level='warning', country_iso_code="DEU")
     # identify batch_size and load data
-    batch_size = lookup_batch_size(args.model) or find_ideal_batch_size(args.model, args.nogpu, args.datadir)
+    if args.batch_size:
+        batch_size = int(args.batch_size)
+    else:
+        batch_size = lookup_batch_size(args.model) or find_ideal_batch_size(args.model, args.nogpu, args.datadir)
     from data_and_model_loading import load_data_and_model # import also inits tensorflow, so only import now
     model, ds, meta = load_data_and_model(args.datadir, args.model, batch_size=batch_size)
     meta['dataset'] = 'ImageNet (ILSVRC 2012)'
@@ -85,8 +89,9 @@ if __name__ == '__main__':
     # assess resource consumption
     emissions = 'emissions.csv'
     emission_data = pd.read_csv('emissions.csv').to_dict()
-    eval_res['time_total'] = emission_data['duration'][0]
+    eval_res['running_time_total'] = emission_data['duration'][0]
     eval_res['running_time'] = emission_data['duration'][0] / n_samples
+    eval_res['power_draw_total'] = emission_data['energy_consumed'][0] * 3.6e6
     eval_res['power_draw'] = emission_data['energy_consumed'][0] * 3.6e6 / n_samples
 
     # log results & cleanup

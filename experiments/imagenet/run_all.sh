@@ -16,28 +16,30 @@ models=("DenseNet121" "DenseNet169" "DenseNet201" "ResNet50" "ResNet101" "ResNet
         "NASNetMobile" "Xception" "VGG16" "VGG19" "ConvNeXtBase" "ConvNeXtSmall" "ConvNeXtTiny")
         # "NASNetLarge" "ConvNeXtLarge" "ConvNeXtXLarge")
 
-# Loop over all models and GPUs
-for m in "${models[@]}"
+# Loop over all configurations
+for b in "4" "16"
 do
     for g in "0"
     do
-        # Keep trying the mlflow run until it succeeds
-        while true
+        for m in "${models[@]}"
         do
-            echo "Running model $m on GPU $g ..."
-            timeout $(( $1 * 10 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P seconds=$1 -P nogpu=$g ./experiments/imagenet
-            
-            # Check if the mlflow run succeeded (exit status 0)
-            if [ $? -eq 0 ]; then
-                echo "Run succeeded for model $m on GPU $g"
-                break  # Exit the loop if succeeded
-            else
-                echo "Run failed for model $m on GPU $g, retrying..."
-                sleep 5
-            fi
+            # Keep trying the mlflow run until it succeeds
+            while true
+            do
+                echo "Running model $m on GPU $g ..."
+                timeout $(( $1 * 10 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P seconds=$1 -P nogpu=$g -P batchsize=$b ./experiments/imagenet
+                
+                # Check if the mlflow run succeeded (exit status 0)
+                if [ $? -eq 0 ]; then
+                    echo "Run succeeded for model $m on GPU $g"
+                    break  # Exit the loop if succeeded
+                else
+                    echo "Run failed for model $m on GPU $g, retrying..."
+                    sleep 5
+                fi
+            done
+            # Save experiment data to CSV
+            mlflow experiments csv -x $exp_id > "$exp_name.csv"
         done
-
-        # Save experiment data to CSV
-        mlflow experiments csv -x $exp_id > "$exp_name.csv"
     done
 done
