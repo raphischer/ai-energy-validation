@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/678602867906376272/5e7b2ddad37f441ab83dd9e81aa618e1/artifacts
+end_time: 1756991210439
+entry_point_name: ''
+experiment_id: '678602867906376272'
+lifecycle_stage: active
+run_id: 5e7b2ddad37f441ab83dd9e81aa618e1
+run_name: abrasive-stoat-740
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756990344121
+status: 3
+tags: []
+user_id: fischer

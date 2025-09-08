@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/678602867906376272/01c2dc00f1ef453792ed288daf99b18d/artifacts
+end_time: 1756979602710
+entry_point_name: ''
+experiment_id: '678602867906376272'
+lifecycle_stage: active
+run_id: 01c2dc00f1ef453792ed288daf99b18d
+run_name: rebellious-tern-878
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756978991471
+status: 3
+tags: []
+user_id: fischer

@@ -1,1 +1,9 @@
-mlflow
+# running experiments
+mlflow-skinny
+numpy
+pandas
+# analysis
+pillow
+pytesseract
+opencv-python
+plotly

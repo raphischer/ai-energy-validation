@@ -8,7 +8,7 @@ import mlflow
 import pandas as pd
 from codecarbon import OfflineEmissionsTracker
 
-from util import print_colored_block
+from util import print_colored_block, save_webcam_image
 from batch_sizes import lookup_batch_size, find_ideal_batch_size
 
 if __name__ == '__main__':
@@ -16,7 +16,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Inference benchmarking with keras models on ImageNet")
     # data and model input
     parser.add_argument("--experiment", default="/home/fischer/repos/mlprops/experiments/imagenet/")
-    parser.add_argument("--model", default="DenseNet121")
+    parser.add_argument("--model", default="EfficientNetB0")
     parser.add_argument("--dataset", default=None)
     parser.add_argument("--datadir", default="/data/d1/fischer_diss/imagenet")
     parser.add_argument("--measure_power_secs", default=0.5)
@@ -28,7 +28,11 @@ if __name__ == '__main__':
     # if required, disable gpu
     if args.nogpu:
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+    else:
+        os.environ['CUDA_VISIBLE_DEVICES'] = "0"
 
+    # load tracker before importing tensorflow!
+    tracker = OfflineEmissionsTracker(measure_power_secs=args.measure_power_secs, log_level='warning', country_iso_code="DEU")
     # identify batch_size and load data
     batch_size = lookup_batch_size(args.model) or find_ideal_batch_size(args.model, args.nogpu, args.datadir)
     from data_and_model_loading import load_data_and_model # import also inits tensorflow, so only import now
@@ -57,12 +61,13 @@ if __name__ == '__main__':
 
     # evaluate on validation
     mlflow.log_param('n_samples', n_samples)
-    tracker = OfflineEmissionsTracker(measure_power_secs=args.measure_power_secs, log_level='warning', country_iso_code="DEU")
+    save_webcam_image("capture_start.jpg")
     tracker.start()
     print_colored_block(f'STARTING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}')
     eval_res = model.evaluate(ds, return_dict=True)
     print_colored_block(f'STOPPING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}', ok=False)
     tracker.stop()
+    save_webcam_image("capture_stop.jpg")
 
     if not args.seconds:
         # evaluate robustness
@@ -84,12 +89,11 @@ if __name__ == '__main__':
     eval_res['running_time'] = emission_data['duration'][0] / n_samples
     eval_res['power_draw'] = emission_data['energy_consumed'][0] * 3.6e6 / n_samples
 
-    # log results
+    # log results & cleanup
     for key, val in eval_res.items():
         mlflow.log_metric(key, val)
-    mlflow.log_artifact(emissions)
-    
-    # cleanup
-    os.remove(emissions)
+    for f in [emissions, 'capture_start.jpg', 'capture_stop.jpg']:
+        mlflow.log_artifact(f)
+        os.remove(f)
     print(eval_res)
     sys.exit(0)

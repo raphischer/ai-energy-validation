@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/678602867906376272/4638faf88d1b4d33831ecff2123c4f85/artifacts
+end_time: 1756989713879
+entry_point_name: ''
+experiment_id: '678602867906376272'
+lifecycle_stage: active
+run_id: 4638faf88d1b4d33831ecff2123c4f85
+run_name: rogue-cow-456
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756989074800
+status: 3
+tags: []
+user_id: fischer

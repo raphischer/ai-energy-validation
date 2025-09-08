@@ -264,7 +264,7 @@ if not os.path.exists(output_folder):
 # init OCR with tesseract
 import pytesseract
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
-os.environ['TESSDATA_PREFIX'] = r'D:\Repos\Tesseract_sevenSegmentsLetsGoDigital\Trained data'
+os.environ['TESSDATA_PREFIX'] = r'/home/fischer/repos/digital-display-character-rec/letsgodigital'
 ocr_func = lambda im: pytesseract.image_to_string(im, lang='lets', config='--psm 6').replace('\n', '').replace(',', '.').replace(' ', '').replace('-', '') # get lets from https://github.com/adrianlazaro8/Tesseract_sevenSegmentsLetsGoDigital/tree/master
 
 # identify preprocessing hyperparameters

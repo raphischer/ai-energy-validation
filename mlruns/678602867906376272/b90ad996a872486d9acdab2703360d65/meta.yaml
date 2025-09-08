@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/678602867906376272/b90ad996a872486d9acdab2703360d65/artifacts
+end_time: 1756986391071
+entry_point_name: ''
+experiment_id: '678602867906376272'
+lifecycle_stage: active
+run_id: b90ad996a872486d9acdab2703360d65
+run_name: mercurial-whale-824
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756985767641
+status: 3
+tags: []
+user_id: fischer

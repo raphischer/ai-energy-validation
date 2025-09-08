@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/678602867906376272/1fe0dd973ba8489597c08a61a0f25841/artifacts
+end_time: 1756975243826
+entry_point_name: ''
+experiment_id: '678602867906376272'
+lifecycle_stage: active
+run_id: 1fe0dd973ba8489597c08a61a0f25841
+run_name: popular-penguin-700
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756974591946
+status: 3
+tags: []
+user_id: fischer

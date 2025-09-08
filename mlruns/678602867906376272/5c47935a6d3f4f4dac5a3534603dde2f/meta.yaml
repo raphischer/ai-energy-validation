@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/678602867906376272/5c47935a6d3f4f4dac5a3534603dde2f/artifacts
+end_time: 1756978988873
+entry_point_name: ''
+experiment_id: '678602867906376272'
+lifecycle_stage: active
+run_id: 5c47935a6d3f4f4dac5a3534603dde2f
+run_name: smiling-cat-282
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756978155469
+status: 3
+tags: []
+user_id: fischer

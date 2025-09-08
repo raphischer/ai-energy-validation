@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/678602867906376272/5ecf0e8a74ab4445b7eb2a1a98a9f071/artifacts
+end_time: 1756990341339
+entry_point_name: ''
+experiment_id: '678602867906376272'
+lifecycle_stage: active
+run_id: 5ecf0e8a74ab4445b7eb2a1a98a9f071
+run_name: glamorous-grub-824
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756989716846
+status: 3
+tags: []
+user_id: fischer

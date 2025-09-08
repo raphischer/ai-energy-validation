@@ -9,7 +9,7 @@ import mlflow
 import pandas as pd
 from codecarbon import OfflineEmissionsTracker
 
-from util import print_colored_block, get_processor_name, get_gpu_name
+from util import print_colored_block, get_processor_name, get_gpu_name, save_webcam_image
 
 def read_queries(random=True):
     conversations = pd.read_json(path_or_buf=os.path.join(os.path.dirname(__file__), 'llm_baseline_conversations_puffin.jsonl'), lines=True)
@@ -63,8 +63,9 @@ if __name__ == '__main__':
     # run evaluations but watch for time limit
     times, n_samples, tokens = [], 0, {'in': [], 'out': []}
 
-    # evaluate on validation
+    # evaluate queries
     tracker = OfflineEmissionsTracker(measure_power_secs=args.measure_power_secs, log_level='error', country_iso_code="DEU")
+    save_webcam_image("capture_start.jpg")
     tracker.start()
     print_colored_block(f'STARTING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}')
     # run inference
@@ -78,11 +79,12 @@ if __name__ == '__main__':
             pass
         times.append(time.time() - t0)
         n_samples += 1
-        remaining = args.seconds - sum(times) if args.seconds and len(times) < 5 else args.seconds - sum(times) + np.average(times)
+        remaining = args.seconds - sum(times) if args.seconds and len(times) < 5 else args.seconds - (sum(times) + np.average(times))
         if args.seconds and remaining < 0:
             break
     print_colored_block(f'STOPPING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}', ok=False)
     tracker.stop()
+    save_webcam_image("capture_stop.jpg")
 
     # add average amount of tokens if there we any errors:
     tokens['in'] += [np.mean(tokens['in'])] * (n_samples - len(tokens['in']))
@@ -100,14 +102,13 @@ if __name__ == '__main__':
         'power_draw': emission_data['energy_consumed'][0] * 3.6e6 / n_samples
     }
 
-    # log results
+    # log results & cleanup
     mlflow.log_param('n_samples', n_samples)
     for key, val in results.items():
         mlflow.log_metric(key, val)
-    mlflow.log_artifact(emissions)
-    
-    # cleanup
-    os.remove(emissions)
+    for f in [emissions, 'capture_start.jpg', 'capture_stop.jpg']:
+        mlflow.log_artifact(f)
+        os.remove(f)
     print(results)
     print('n_samples', n_samples)
     sys.exit(0)

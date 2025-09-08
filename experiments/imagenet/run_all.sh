@@ -12,8 +12,9 @@ models=("DenseNet121" "DenseNet169" "DenseNet201" "ResNet50" "ResNet101" "ResNet
         "InceptionResNetV2" "InceptionV3" "MobileNet" "MobileNetV2" "MobileNetV3Large" "MobileNetV3Small"
         "EfficientNetB0" "EfficientNetB1" "EfficientNetB2" "EfficientNetB3" "EfficientNetB4" "EfficientNetB5" "EfficientNetB6" 
         "EfficientNetB7" "EfficientNetV2B0" "EfficientNetV2B1" "EfficientNetV2B2" "EfficientNetV2B3" "EfficientNetV2L" 
-        "EfficientNetV2M" "EfficientNetV2S" "NASNetLarge" "NASNetMobile" "Xception"
-        "VGG16" "VGG19" "ConvNeXtBase" "ConvNeXtSmall" "ConvNeXtTiny" "ConvNeXtLarge" "ConvNeXtXLarge")
+        "EfficientNetV2M" "EfficientNetV2S" 
+        "NASNetMobile" "Xception" "VGG16" "VGG19" "ConvNeXtBase" "ConvNeXtSmall" "ConvNeXtTiny")
+        # "NASNetLarge" "ConvNeXtLarge" "ConvNeXtXLarge")
 
 # Loop over all models and GPUs
 for m in "${models[@]}"
@@ -24,7 +25,7 @@ do
         while true
         do
             echo "Running model $m on GPU $g ..."
-            timeout 18000 mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P seconds=$1 -P nogpu=$g ./experiments/imagenet
+            timeout 3600 mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P seconds=$1 -P nogpu=$g ./experiments/imagenet
             
             # Check if the mlflow run succeeded (exit status 0)
             if [ $? -eq 0 ]; then
@@ -32,6 +33,7 @@ do
                 break  # Exit the loop if succeeded
             else
                 echo "Run failed for model $m on GPU $g, retrying..."
+                sleep 5
             fi
         done
 

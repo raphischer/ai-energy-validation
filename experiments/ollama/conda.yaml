@@ -7,3 +7,4 @@ dependencies:
     - ollama
     - pandas
     - codecarbon
+    - opencv-python

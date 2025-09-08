@@ -1,6 +1,7 @@
 import subprocess
 import platform
 import re
+import time
     
 def print_colored_block(message, ok=True, rows=6, row_length=80):
     col = '\033[92m' if ok else '\033[91m'
@@ -50,3 +51,23 @@ def get_gpu_name():
         return None
 
     return None
+
+def save_webcam_image(fname, device_id=0, seconds=8):
+    import cv2
+    cap = cv2.VideoCapture(device_id, cv2.CAP_V4L2)
+    print( f"Saving webcam image (device {device_id}), will take {seconds} seconds..." )
+
+    if not cap.isOpened():
+        raise RuntimeError("❌ Cannot open webcam")
+
+    t0 = time.time()
+    while time.time() - t0 < seconds:
+        ret, frame = cap.read()
+        if not ret:
+            print("⚠️ Failed to capture frame")
+            continue
+        # Wait 1 second
+        time.sleep(1)
+    cv2.imwrite(fname, frame)
+    cap.release()
+

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/678602867906376272/e41cf2042c8348988925f49b85850edf/artifacts
+end_time: 1756993173063
+entry_point_name: ''
+experiment_id: '678602867906376272'
+lifecycle_stage: active
+run_id: e41cf2042c8348988925f49b85850edf
+run_name: bald-wolf-412
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756992550214
+status: 3
+tags: []
+user_id: fischer

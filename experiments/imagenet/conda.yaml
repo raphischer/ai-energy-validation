@@ -6,6 +6,7 @@ dependencies:
     - mlflow
     - tensorflow[and-cuda]
     - tensorflow-datasets
+    - keras==3.10
     - tensor
     - codecarbon
     - opencv-python

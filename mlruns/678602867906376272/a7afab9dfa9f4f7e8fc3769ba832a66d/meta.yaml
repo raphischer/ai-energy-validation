@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/678602867906376272/a7afab9dfa9f4f7e8fc3769ba832a66d/artifacts
+end_time: 1756981016755
+entry_point_name: ''
+experiment_id: '678602867906376272'
+lifecycle_stage: active
+run_id: a7afab9dfa9f4f7e8fc3769ba832a66d
+run_name: skillful-fly-734
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756980408971
+status: 3
+tags: []
+user_id: fischer

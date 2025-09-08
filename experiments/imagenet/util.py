@@ -1,6 +1,7 @@
 import subprocess
 import platform
 import re
+import time
 
 def execute(cmd):
     popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
@@ -27,3 +28,22 @@ def get_processor_name():
             if "model name" in line:
                 return re.sub( ".*model name.*:", "", line,1).strip()
     return ""
+
+def save_webcam_image(fname, device_id=0, seconds=8):
+    import cv2
+    cap = cv2.VideoCapture(device_id, cv2.CAP_V4L2)
+    print( f"Saving webcam image (device {device_id}), will take {seconds} seconds..." )
+
+    if not cap.isOpened():
+        raise RuntimeError("❌ Cannot open webcam")
+
+    t0 = time.time()
+    while time.time() - t0 < seconds:
+        ret, frame = cap.read()
+        if not ret:
+            print("⚠️ Failed to capture frame")
+            continue
+        # Wait 1 second
+        time.sleep(1)
+    cv2.imwrite(fname, frame)
+    cap.release()

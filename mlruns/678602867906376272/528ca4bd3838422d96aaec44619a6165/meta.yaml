@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/678602867906376272/528ca4bd3838422d96aaec44619a6165/artifacts
+end_time: 1756987683864
+entry_point_name: ''
+experiment_id: '678602867906376272'
+lifecycle_stage: active
+run_id: 528ca4bd3838422d96aaec44619a6165
+run_name: welcoming-duck-161
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756987058861
+status: 3
+tags: []
+user_id: fischer

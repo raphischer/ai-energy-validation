@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/678602867906376272/5836130bd0084c918ea66be8afc82763/artifacts
+end_time: 1756983032850
+entry_point_name: ''
+experiment_id: '678602867906376272'
+lifecycle_stage: active
+run_id: 5836130bd0084c918ea66be8afc82763
+run_name: bemused-lynx-651
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756982321225
+status: 3
+tags: []
+user_id: fischer
