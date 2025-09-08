@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/4395b8ca8ac147f4ac255f573c119635/artifacts
+end_time: 1757336092781
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 4395b8ca8ac147f4ac255f573c119635
+run_name: funny-zebra-785
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757336076132
+status: 4
+tags: []
+user_id: fischer

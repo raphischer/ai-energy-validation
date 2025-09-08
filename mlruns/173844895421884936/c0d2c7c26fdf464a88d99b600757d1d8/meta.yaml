@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/c0d2c7c26fdf464a88d99b600757d1d8/artifacts
+end_time: 1757342276200
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: c0d2c7c26fdf464a88d99b600757d1d8
+run_name: bright-wren-215
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757342098232
+status: 3
+tags: []
+user_id: fischer

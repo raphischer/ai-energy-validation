@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/4c2fbfc490f4442383907cd4f4a8d08f/artifacts
+end_time: 1757341116382
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 4c2fbfc490f4442383907cd4f4a8d08f
+run_name: gaudy-wasp-686
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757341102713
+status: 4
+tags: []
+user_id: fischer

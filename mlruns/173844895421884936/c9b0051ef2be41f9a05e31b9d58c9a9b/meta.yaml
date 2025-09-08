@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/c9b0051ef2be41f9a05e31b9d58c9a9b/artifacts
+end_time: 1757340388390
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: c9b0051ef2be41f9a05e31b9d58c9a9b
+run_name: righteous-shrimp-164
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757340371639
+status: 4
+tags: []
+user_id: fischer

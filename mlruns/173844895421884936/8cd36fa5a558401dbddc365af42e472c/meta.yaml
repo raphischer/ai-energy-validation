@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/8cd36fa5a558401dbddc365af42e472c/artifacts
+end_time: 1757337239530
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 8cd36fa5a558401dbddc365af42e472c
+run_name: respected-ram-247
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757337223369
+status: 4
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/727f353405034b9ebe9dd7455b264e0a/artifacts
+end_time: 1757341421980
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 727f353405034b9ebe9dd7455b264e0a
+run_name: aged-frog-363
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757341408732
+status: 4
+tags: []
+user_id: fischer

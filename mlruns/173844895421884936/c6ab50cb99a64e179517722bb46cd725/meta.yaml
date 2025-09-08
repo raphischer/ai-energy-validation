@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/c6ab50cb99a64e179517722bb46cd725/artifacts
+end_time: 1757341380969
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: c6ab50cb99a64e179517722bb46cd725
+run_name: incongruous-crab-328
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757341366938
+status: 4
+tags: []
+user_id: fischer

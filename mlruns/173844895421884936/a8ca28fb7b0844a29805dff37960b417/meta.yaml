@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/a8ca28fb7b0844a29805dff37960b417/artifacts
+end_time: 1757347762757
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: a8ca28fb7b0844a29805dff37960b417
+run_name: gifted-hen-982
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757347531507
+status: 4
+tags: []
+user_id: fischer

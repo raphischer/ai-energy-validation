@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/a4780414bdae40d98aca4cba1ad4e55f/artifacts
+end_time: 1757342733623
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: a4780414bdae40d98aca4cba1ad4e55f
+run_name: useful-chimp-7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757342705565
+status: 4
+tags: []
+user_id: fischer

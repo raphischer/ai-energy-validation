@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/f52e8a80ed764fb4870614b777f10af1/artifacts
+end_time: 1757336645685
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: f52e8a80ed764fb4870614b777f10af1
+run_name: burly-pig-176
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757336626934
+status: 4
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/4bd7ec44ba3642f7a259e4986939507a/artifacts
+end_time: 1757344117377
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 4bd7ec44ba3642f7a259e4986939507a
+run_name: nervous-stag-127
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757344002868
+status: 3
+tags: []
+user_id: fischer

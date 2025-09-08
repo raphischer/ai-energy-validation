@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/f8d13786906b443eb3c3e825394590ff/artifacts
+end_time: 1757336028754
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: f8d13786906b443eb3c3e825394590ff
+run_name: inquisitive-bat-531
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757336015749
+status: 4
+tags: []
+user_id: fischer

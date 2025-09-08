@@ -19,7 +19,7 @@ do
         while true
         do
             echo "Running model $m on GPU $g ..."
-            timeout 3600 mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P seconds=$1 -P temperature=$t ./experiments/ollama
+            timeout $(( $1 * 10 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P seconds=$1 -P temperature=$t ./experiments/ollama
             
             # Check if the mlflow run succeeded (exit status 0)
             if [ $? -eq 0 ]; then

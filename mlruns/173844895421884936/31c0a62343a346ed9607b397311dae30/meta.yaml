@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/31c0a62343a346ed9607b397311dae30/artifacts
+end_time: 1757343950278
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 31c0a62343a346ed9607b397311dae30
+run_name: spiffy-midge-121
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757343931072
+status: 4
+tags: []
+user_id: fischer

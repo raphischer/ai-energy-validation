@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/61307c3e7e1b4570acacab4c4a7c4b29/artifacts
+end_time: 1757337837344
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 61307c3e7e1b4570acacab4c4a7c4b29
+run_name: invincible-frog-64
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757337699852
+status: 3
+tags: []
+user_id: fischer

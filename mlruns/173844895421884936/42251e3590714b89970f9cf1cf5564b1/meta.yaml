@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/42251e3590714b89970f9cf1cf5564b1/artifacts
+end_time: 1757343500390
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 42251e3590714b89970f9cf1cf5564b1
+run_name: bold-panda-563
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757343489625
+status: 4
+tags: []
+user_id: fischer

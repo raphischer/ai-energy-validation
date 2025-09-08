@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/2c4c1f6b3e164525bf002040f858f074/artifacts
+end_time: 1757345398190
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 2c4c1f6b3e164525bf002040f858f074
+run_name: rare-owl-890
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757345385222
+status: 4
+tags: []
+user_id: fischer

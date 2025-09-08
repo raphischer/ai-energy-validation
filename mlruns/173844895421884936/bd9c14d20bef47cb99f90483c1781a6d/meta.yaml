@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/bd9c14d20bef47cb99f90483c1781a6d/artifacts
+end_time: 1757344519435
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: bd9c14d20bef47cb99f90483c1781a6d
+run_name: thundering-smelt-860
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757344499951
+status: 4
+tags: []
+user_id: fischer

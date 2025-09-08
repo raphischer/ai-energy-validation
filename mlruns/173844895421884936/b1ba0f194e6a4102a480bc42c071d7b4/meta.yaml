@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/b1ba0f194e6a4102a480bc42c071d7b4/artifacts
+end_time: 1757339705783
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: b1ba0f194e6a4102a480bc42c071d7b4
+run_name: flawless-boar-708
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757339689258
+status: 4
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/1c4e5768ff064565934d82126e188d2b/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 1c4e5768ff064565934d82126e188d2b
+run_name: fearless-duck-395
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757341122330
+status: 1
+tags: []
+user_id: fischer

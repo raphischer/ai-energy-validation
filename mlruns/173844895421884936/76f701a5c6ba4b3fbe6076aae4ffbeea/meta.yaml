@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/76f701a5c6ba4b3fbe6076aae4ffbeea/artifacts
+end_time: 1757343483723
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 76f701a5c6ba4b3fbe6076aae4ffbeea
+run_name: clean-whale-94
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757343472419
+status: 4
+tags: []
+user_id: fischer

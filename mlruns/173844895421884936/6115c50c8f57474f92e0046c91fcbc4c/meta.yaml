@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/6115c50c8f57474f92e0046c91fcbc4c/artifacts
+end_time: 1757338149166
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 6115c50c8f57474f92e0046c91fcbc4c
+run_name: kindly-gull-642
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757337984027
+status: 3
+tags: []
+user_id: fischer

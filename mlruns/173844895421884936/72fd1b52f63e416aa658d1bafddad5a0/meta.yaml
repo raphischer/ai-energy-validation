@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/72fd1b52f63e416aa658d1bafddad5a0/artifacts
+end_time: 1757338473163
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 72fd1b52f63e416aa658d1bafddad5a0
+run_name: receptive-crow-676
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757338460270
+status: 4
+tags: []
+user_id: fischer

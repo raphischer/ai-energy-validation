@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/4196fb6a684347d8b6cbb7d7f73d7026/artifacts
+end_time: 1757334682490
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 4196fb6a684347d8b6cbb7d7f73d7026
+run_name: languid-kite-573
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757334666277
+status: 4
+tags: []
+user_id: fischer

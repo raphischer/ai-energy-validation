@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/dd61182ba2bb43a69d33de5baaba3349/artifacts
+end_time: 1757338182364
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: dd61182ba2bb43a69d33de5baaba3349
+run_name: colorful-rook-226
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757338173445
+status: 4
+tags: []
+user_id: fischer

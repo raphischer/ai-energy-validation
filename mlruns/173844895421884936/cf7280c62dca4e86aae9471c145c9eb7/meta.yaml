@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/cf7280c62dca4e86aae9471c145c9eb7/artifacts
+end_time: 1757337220285
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: cf7280c62dca4e86aae9471c145c9eb7
+run_name: thundering-hawk-516
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757337109648
+status: 3
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/053a9f79a81641a882a93153ab8a5073/artifacts
+end_time: 1757335720229
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 053a9f79a81641a882a93153ab8a5073
+run_name: entertaining-ant-418
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757335704537
+status: 4
+tags: []
+user_id: fischer

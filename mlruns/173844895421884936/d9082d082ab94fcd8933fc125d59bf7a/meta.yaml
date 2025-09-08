@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/d9082d082ab94fcd8933fc125d59bf7a/artifacts
+end_time: 1757336009053
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: d9082d082ab94fcd8933fc125d59bf7a
+run_name: mercurial-midge-954
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757335931308
+status: 4
+tags: []
+user_id: fischer

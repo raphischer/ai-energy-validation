@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/d06a3544385e44aa9840c44dbfec1878/artifacts
+end_time: 1757338864056
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: d06a3544385e44aa9840c44dbfec1878
+run_name: victorious-eel-353
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757338854048
+status: 4
+tags: []
+user_id: fischer

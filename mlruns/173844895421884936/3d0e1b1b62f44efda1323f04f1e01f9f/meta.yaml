@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/3d0e1b1b62f44efda1323f04f1e01f9f/artifacts
+end_time: 1757338678516
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 3d0e1b1b62f44efda1323f04f1e01f9f
+run_name: sassy-donkey-207
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757338664706
+status: 4
+tags: []
+user_id: fischer

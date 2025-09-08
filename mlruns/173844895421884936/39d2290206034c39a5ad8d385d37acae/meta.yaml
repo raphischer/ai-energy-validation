@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/39d2290206034c39a5ad8d385d37acae/artifacts
+end_time: 1757338848156
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 39d2290206034c39a5ad8d385d37acae
+run_name: worried-skunk-120
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757338832447
+status: 4
+tags: []
+user_id: fischer

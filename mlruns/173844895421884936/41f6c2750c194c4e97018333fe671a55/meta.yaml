@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/41f6c2750c194c4e97018333fe671a55/artifacts
+end_time: 1757335416926
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 41f6c2750c194c4e97018333fe671a55
+run_name: funny-lamb-84
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757335399801
+status: 4
+tags: []
+user_id: fischer

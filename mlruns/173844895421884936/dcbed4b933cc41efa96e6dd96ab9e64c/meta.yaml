@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/dcbed4b933cc41efa96e6dd96ab9e64c/artifacts
+end_time: 1757337008473
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: dcbed4b933cc41efa96e6dd96ab9e64c
+run_name: nervous-mole-496
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757336900399
+status: 3
+tags: []
+user_id: fischer

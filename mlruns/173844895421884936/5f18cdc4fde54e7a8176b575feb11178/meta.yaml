@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/5f18cdc4fde54e7a8176b575feb11178/artifacts
+end_time: 1757345221158
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: 5f18cdc4fde54e7a8176b575feb11178
+run_name: suave-doe-369
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757345204918
+status: 4
+tags: []
+user_id: fischer

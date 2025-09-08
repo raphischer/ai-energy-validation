@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/ca96b3b834b04bc29a3fb9a61a3a3cf0/artifacts
+end_time: 1757338806209
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: ca96b3b834b04bc29a3fb9a61a3a3cf0
+run_name: polite-stoat-224
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757338684440
+status: 3
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/173844895421884936/f3c79700dded44dbbabd459a49f304bf/artifacts
+end_time: 1757341439737
+entry_point_name: ''
+experiment_id: '173844895421884936'
+lifecycle_stage: active
+run_id: f3c79700dded44dbbabd459a49f304bf
+run_name: efficient-calf-571
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757341427855
+status: 4
+tags: []
+user_id: fischer
