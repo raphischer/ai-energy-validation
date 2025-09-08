@@ -162,10 +162,8 @@ if __name__ == "__main__":
     args = argparser.parse_args()
 
     # load report
-    with open(args.report_fname, 'r') as f:
-        report = pd.read_csv(f)
+    report = pd.read_csv(args.report_fname).dropna().set_index('run_id').sort_values('start_time')
     # make sure that paths align (could happen when analysis takes place on a separate machine)
-    report = report .dropna().set_index('run_id').sort_values('start_time')
     report['artifact_uri'] = report['artifact_uri'].apply(lambda x: os.path.join(os.path.dirname(__file__), 'mlruns', *x.split('mlruns/')[1].split('/')))
 
     # load frame names

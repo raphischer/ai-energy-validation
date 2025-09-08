@@ -95,5 +95,6 @@ if __name__ == '__main__':
     for f in [emissions, 'capture_start.jpg', 'capture_stop.jpg']:
         mlflow.log_artifact(f)
         os.remove(f)
+    mlflow.end_run()
     print(eval_res)
     sys.exit(0)

@@ -5,6 +5,7 @@ from itertools import product
 import sys
 
 import tensorflow as tf
+tf.keras.backend.clear_session()
 import tensorflow_datasets as tfds
 
 from util import get_processor_name
