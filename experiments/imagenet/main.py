@@ -21,24 +21,18 @@ if __name__ == '__main__':
     parser.add_argument("--datadir", default="/data/d1/fischer_diss/imagenet")
     parser.add_argument("--batchsize", default=None)
     parser.add_argument("--measure_power_secs", default=0.5)
-    parser.add_argument("--nogpu", type=int, default=0)
     parser.add_argument("--seconds", type=int, default=120, help="number of seconds to profile model on a subset of the data -- 0 process complete")
     args = parser.parse_args()
     mlflow.log_dict(args.__dict__, 'config.json')
-    
-    # if required, disable gpu
-    if args.nogpu:
-        os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-    else:
-        os.environ['CUDA_VISIBLE_DEVICES'] = "0"
+    use_gpu = os.environ['CUDA_VISIBLE_DEVICES']
 
     # load tracker before importing tensorflow!
     tracker = OfflineEmissionsTracker(measure_power_secs=args.measure_power_secs, log_level='warning', country_iso_code="DEU")
     # identify batch_size and load data
-    if args.batch_size:
-        batch_size = int(args.batch_size)
+    if args.batchsize:
+        batch_size = int(args.batchsize)
     else:
-        batch_size = lookup_batch_size(args.model) or find_ideal_batch_size(args.model, args.nogpu, args.datadir)
+        batch_size = lookup_batch_size(args.model) or find_ideal_batch_size(args.model, args.datadir)
     from data_and_model_loading import load_data_and_model # import also inits tensorflow, so only import now
     model, ds, meta = load_data_and_model(args.datadir, args.model, batch_size=batch_size)
     meta['dataset'] = 'ImageNet (ILSVRC 2012)'
@@ -67,9 +61,9 @@ if __name__ == '__main__':
     mlflow.log_param('n_samples', n_samples)
     save_webcam_image("capture_start.jpg")
     tracker.start()
-    print_colored_block(f'STARTING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}')
+    print_colored_block(f'STARTING ENERGY PROFILING FOR  {args.model.upper()}  batch size {args.batchsize} on gpu {use_gpu}')
     eval_res = model.evaluate(ds, return_dict=True)
-    print_colored_block(f'STOPPING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}', ok=False)
+    print_colored_block(f'STOPPING ENERGY PROFILING FOR  {args.model.upper()}  batch size {args.batchsize} on gpu {use_gpu}', ok=False)
     tracker.stop()
     save_webcam_image("capture_stop.jpg")
 

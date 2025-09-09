@@ -16,10 +16,11 @@ models=("DenseNet121" "DenseNet169" "DenseNet201" "ResNet50" "ResNet101" "ResNet
         "NASNetMobile" "Xception" "VGG16" "VGG19" "ConvNeXtBase" "ConvNeXtSmall" "ConvNeXtTiny")
         # "NASNetLarge" "ConvNeXtLarge" "ConvNeXtXLarge")
 
-# Loop over all configurations
-for b in "4" "16"
+# Loop over all configurations (gpu use, batch size, model)
+for g in "0" "-1" # maybe also -1
 do
-    for g in "0"
+    export CUDA_VISIBLE_DEVICES="$g"
+    for b in "4" "16"
     do
         for m in "${models[@]}"
         do
@@ -27,7 +28,7 @@ do
             while true
             do
                 echo "Running model $m on GPU $g ..."
-                timeout $(( $1 * 10 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P seconds=$1 -P nogpu=$g -P batchsize=$b ./experiments/imagenet
+                timeout $(( $1 * 3 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P seconds=$1 -P batchsize=$b ./experiments/imagenet
                 
                 # Check if the mlflow run succeeded (exit status 0)
                 if [ $? -eq 0 ]; then

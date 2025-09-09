@@ -8,7 +8,7 @@ echo $exp_create_str
 exp_id=$(echo $exp_create_str | awk '{print $NF}')
 
 # Define model architectures to iterate over
-models=("gpt-oss:20b" "deepseek-r1:8b" "gemma3:4b" "gemma3:12b" "qwen3:8b" "qwen3:4b" "llama3.1:8b" "llama3.2:3b" "mistral:7b" "phi3:3.8b" "phi4:14b" "tinyllama:1.1b" "dolphin3:8b" "olmo2:7b")
+models=("gpt-oss:20b" "deepseek-r1:8b" "deepseek-r1:1.5b" "gemma3:4b" "gemma3:12b" "gemma3n:e4b" "qwen3:8b" "qwen3:4b" "qwen3:0.6b" "llama3.1:8b" "llama3.2:3b" "mistral:7b" "phi3:3.8b" "phi4:14b" "phi4-reasoning:14b" "tinyllama:1.1b" "dolphin3:8b" "olmo2:7b")
 
 # Loop over all models and GPUs
 for m in "${models[@]}"
@@ -19,7 +19,7 @@ do
         while true
         do
             echo "Running model $m on GPU $g ..."
-            timeout $(( $1 * 10 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P seconds=$1 -P temperature=$t ./experiments/ollama
+            timeout $(( $1 * 4 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P seconds=$1 -P temperature=$t ./experiments/ollama
             
             # Check if the mlflow run succeeded (exit status 0)
             if [ $? -eq 0 ]; then

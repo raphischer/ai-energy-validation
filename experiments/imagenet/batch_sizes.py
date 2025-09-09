@@ -35,10 +35,8 @@ def lookup_batch_size(model):
         print('Could not lookup batch size:', e)
         return None
     
-def find_ideal_batch_size(model, nogpu, data_dir, max_tries=5):
+def find_ideal_batch_size(model, data_dir, max_tries=5):
     batch_size_tests = [1, 2, 4, 8, 16, 32, 64]
-    if nogpu:
-        batch_size_tests = [4, 8, 16, 32, 64, 128, 256, 512]
     optimal, fastest = min(batch_size_tests), np.inf
     for batch_size in batch_size_tests:
         success, iter = False, 0
