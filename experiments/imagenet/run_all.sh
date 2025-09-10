@@ -8,13 +8,11 @@ echo $exp_create_str
 exp_id=$(echo $exp_create_str | awk '{print $NF}')
 
 # Define model architectures to iterate over
-models=("DenseNet121" "DenseNet169" "DenseNet201" "ResNet50" "ResNet101" "ResNet152" "ResNet50V2" "ResNet101V2" "ResNet152V2" 
+models=("DenseNet121" "DenseNet201" "ResNet50" "ResNet101" "ResNet152" "ResNet50V2" "ResNet101V2" "ResNet152V2" 
         "InceptionResNetV2" "InceptionV3" "MobileNet" "MobileNetV2" "MobileNetV3Large" "MobileNetV3Small"
-        "EfficientNetB0" "EfficientNetB1" "EfficientNetB2" "EfficientNetB3" "EfficientNetB4" "EfficientNetB5" "EfficientNetB6" 
-        "EfficientNetB7" "EfficientNetV2B0" "EfficientNetV2B1" "EfficientNetV2B2" "EfficientNetV2B3" "EfficientNetV2L" 
-        "EfficientNetV2M" "EfficientNetV2S" 
+        "EfficientNetB0" "EfficientNetB2" "EfficientNetB3" "EfficientNetB4"
+        "EfficientNetV2B0" "EfficientNetV2B1" "EfficientNetV2B2" "EfficientNetV2B3" "EfficientNetV2S" 
         "NASNetMobile" "Xception" "VGG16" "VGG19" "ConvNeXtBase" "ConvNeXtSmall" "ConvNeXtTiny")
-        # "NASNetLarge" "ConvNeXtLarge" "ConvNeXtXLarge")
 
 # Loop over all configurations (gpu use, batch size, model)
 for g in "0" "-1" # maybe also -1
@@ -28,7 +26,7 @@ do
             while true
             do
                 echo "Running model $m on GPU $g ..."
-                timeout $(( $1 * 3 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P seconds=$1 -P batchsize=$b ./experiments/imagenet
+                timeout $(( $1 * 2 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P seconds=$1 -P batchsize=$b ./experiments/imagenet
                 
                 # Check if the mlflow run succeeded (exit status 0)
                 if [ $? -eq 0 ]; then
