@@ -8,7 +8,13 @@ echo $exp_create_str
 exp_id=$(echo $exp_create_str | awk '{print $NF}')
 
 # Define model architectures to iterate over
-models=("gpt-oss:20b" "deepseek-r1:8b" "deepseek-r1:1.5b" "gemma3:4b" "gemma3:12b" "gemma3n:e4b" "qwen3:8b" "qwen3:4b" "qwen3:0.6b" "llama3.1:8b" "llama3.2:3b" "mistral:7b" "phi3:3.8b" "phi4:14b" "phi4-reasoning:14b" "tinyllama:1.1b" "dolphin3:8b" "olmo2:7b")
+models=("gpt-oss:20b" "deepseek-r1:8b" "deepseek-r1:1.5b"
+        "gemma3:4b" "gemma3:270m" "gemma3n:e4b"
+        "qwen3:8b" "qwen3:4b" "qwen3:0.6b"
+        "llama3.1:8b" "llama3.2:3b" "tinyllama:1.1b"
+        "mistral:7b" "mistral-small3.2:24b" "magistral:24b"
+        "phi3:3.8b" "phi4:14b" "phi4-reasoning:14b"
+        "dolphin3:8b" "olmo2:7b")
 
 # Loop over all models and GPUs
 for m in "${models[@]}"
