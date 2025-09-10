@@ -1,8 +1,0 @@
-{
-  "experiment": "/home/fischer/repos/mlprops/experiments/imagenet/",
-  "model": "tinyllama:1.1b",
-  "temperature": 0.1,
-  "measure_power_secs": 0.5,
-  "nogpu": 0,
-  "seconds": 900
-}

@@ -1,8 +1,0 @@
-{
-  "experiment": "/home/fischer/repos/mlprops/experiments/imagenet/",
-  "model": "gemma3:4b",
-  "temperature": 0.7,
-  "measure_power_secs": 0.5,
-  "nogpu": 0,
-  "seconds": 900
-}

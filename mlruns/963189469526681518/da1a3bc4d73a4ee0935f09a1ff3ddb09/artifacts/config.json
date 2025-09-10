@@ -1,9 +1,0 @@
-{
-  "experiment": "/home/fischer/repos/mlprops/experiments/imagenet/",
-  "model": "MobileNetV2",
-  "dataset": null,
-  "datadir": "/data/d1/fischer_diss/imagenet",
-  "batchsize": "4",
-  "measure_power_secs": 0.5,
-  "seconds": 120
-}
