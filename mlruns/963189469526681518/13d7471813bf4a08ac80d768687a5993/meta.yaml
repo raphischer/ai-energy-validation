@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/13d7471813bf4a08ac80d768687a5993/artifacts
+end_time: 1757472742559
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 13d7471813bf4a08ac80d768687a5993
+run_name: thundering-ray-173
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757472729867
+status: 4
+tags: []
+user_id: fischer

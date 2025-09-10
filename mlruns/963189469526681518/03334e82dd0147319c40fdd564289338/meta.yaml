@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/03334e82dd0147319c40fdd564289338/artifacts
+end_time: 1757465855835
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 03334e82dd0147319c40fdd564289338
+run_name: exultant-mule-644
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757465644535
+status: 3
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/a2f56933d7674246924b6b04a27baa65/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: a2f56933d7674246924b6b04a27baa65
+run_name: lyrical-hog-450
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757489000485
+status: 1
+tags: []
+user_id: fischer

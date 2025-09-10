@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/cf3871df2fdc426abd3eaa00d08bc6e4/artifacts
+end_time: 1757444815760
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: cf3871df2fdc426abd3eaa00d08bc6e4
+run_name: mercurial-frog-768
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757443898543
+status: 3
+tags: []
+user_id: fischer

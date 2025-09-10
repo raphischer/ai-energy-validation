@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/40a7ab1e817c4a61af30311c8f8a28c0/artifacts
+end_time: 1757479991979
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 40a7ab1e817c4a61af30311c8f8a28c0
+run_name: aged-cod-341
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757479823315
+status: 3
+tags: []
+user_id: fischer

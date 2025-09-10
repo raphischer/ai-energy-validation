@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/e385816a74444dc4b21c60d3e1bb4f19/artifacts
+end_time: 1757470995864
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: e385816a74444dc4b21c60d3e1bb4f19
+run_name: clumsy-shark-425
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757470824742
+status: 3
+tags: []
+user_id: fischer

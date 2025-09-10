@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/9b630d1cce7e4b2693b5672e34023a43/artifacts
+end_time: 1757474002839
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 9b630d1cce7e4b2693b5672e34023a43
+run_name: righteous-quail-501
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757473977543
+status: 4
+tags: []
+user_id: fischer

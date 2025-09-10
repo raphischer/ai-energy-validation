@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/36a27f8edd354c8d8df49c4c7de1548e/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 36a27f8edd354c8d8df49c4c7de1548e
+run_name: handsome-kit-766
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757486810633
+status: 1
+tags: []
+user_id: fischer

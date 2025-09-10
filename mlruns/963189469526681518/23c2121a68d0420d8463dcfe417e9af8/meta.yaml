@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/23c2121a68d0420d8463dcfe417e9af8/artifacts
+end_time: 1757466940689
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 23c2121a68d0420d8463dcfe417e9af8
+run_name: burly-lynx-802
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757466927829
+status: 4
+tags: []
+user_id: fischer

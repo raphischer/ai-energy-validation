@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/3a7130a6b6cf476e9887fb18e1d7cac4/artifacts
+end_time: 1757465408272
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 3a7130a6b6cf476e9887fb18e1d7cac4
+run_name: industrious-ant-811
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757465189936
+status: 3
+tags: []
+user_id: fischer

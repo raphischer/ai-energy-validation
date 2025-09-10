@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/520b1d4cbcc54b94bff189cd0b7fe12e/artifacts
+end_time: 1757480641226
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 520b1d4cbcc54b94bff189cd0b7fe12e
+run_name: abundant-whale-739
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757480487516
+status: 3
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/c2a814ae644d4c0f9d418092c42b64da/artifacts
+end_time: 1757475874451
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: c2a814ae644d4c0f9d418092c42b64da
+run_name: awesome-jay-870
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757475702493
+status: 3
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/daccf9a85a30403d9aa45cc17e2115d0/artifacts
+end_time: 1757467452274
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: daccf9a85a30403d9aa45cc17e2115d0
+run_name: skillful-swan-843
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757467300352
+status: 3
+tags: []
+user_id: fischer

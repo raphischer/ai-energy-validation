@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/2a85a0ba4c82405991e3b85e5a8a1047/artifacts
+end_time: 1757466956532
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 2a85a0ba4c82405991e3b85e5a8a1047
+run_name: redolent-tern-204
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757466946621
+status: 4
+tags: []
+user_id: fischer

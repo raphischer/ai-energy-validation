@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/2b65e94df73f4b9680d9103955b25628/artifacts
+end_time: 1757481197007
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 2b65e94df73f4b9680d9103955b25628
+run_name: omniscient-eel-281
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757481027930
+status: 3
+tags: []
+user_id: fischer

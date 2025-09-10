@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/ac781c58225d4e50ae64ea45aa0033eb/artifacts
+end_time: 1757472810806
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: ac781c58225d4e50ae64ea45aa0033eb
+run_name: enchanting-sow-808
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757472797996
+status: 4
+tags: []
+user_id: fischer

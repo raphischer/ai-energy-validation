@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/38992a34609f4b8c9fe079df57618ceb/artifacts
+end_time: 1757481006561
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 38992a34609f4b8c9fe079df57618ceb
+run_name: nervous-fox-360
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757480993880
+status: 4
+tags: []
+user_id: fischer

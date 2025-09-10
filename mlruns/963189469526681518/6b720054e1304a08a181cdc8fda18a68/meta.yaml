@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/6b720054e1304a08a181cdc8fda18a68/artifacts
+end_time: 1757474036093
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 6b720054e1304a08a181cdc8fda18a68
+run_name: sassy-trout-547
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757474027175
+status: 4
+tags: []
+user_id: fischer

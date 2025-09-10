@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/b64d2d7e884d44529c8b181b7d6dd27c/artifacts
+end_time: 1757427938140
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: b64d2d7e884d44529c8b181b7d6dd27c
+run_name: bemused-calf-408
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757427019258
+status: 3
+tags: []
+user_id: fischer

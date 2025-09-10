@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/69c6d59ab73648d1ab9bd001b63ecb9e/artifacts
+end_time: 1757442047031
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: 69c6d59ab73648d1ab9bd001b63ecb9e
+run_name: adaptable-crab-567
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757441091691
+status: 3
+tags: []
+user_id: fischer

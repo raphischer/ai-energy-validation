@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/102a31c4f2754f669fd9ca274e921d69/artifacts
+end_time: 1757474115004
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 102a31c4f2754f669fd9ca274e921d69
+run_name: serious-crane-726
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757474100689
+status: 4
+tags: []
+user_id: fischer

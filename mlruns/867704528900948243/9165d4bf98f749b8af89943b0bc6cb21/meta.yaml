@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/9165d4bf98f749b8af89943b0bc6cb21/artifacts
+end_time: 1757450827182
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: 9165d4bf98f749b8af89943b0bc6cb21
+run_name: awesome-worm-248
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757449903504
+status: 3
+tags: []
+user_id: fischer

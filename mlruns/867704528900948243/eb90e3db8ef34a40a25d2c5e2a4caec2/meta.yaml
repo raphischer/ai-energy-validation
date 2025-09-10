@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/eb90e3db8ef34a40a25d2c5e2a4caec2/artifacts
+end_time: 1757451796761
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: eb90e3db8ef34a40a25d2c5e2a4caec2
+run_name: big-ox-798
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757450832155
+status: 3
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/2f629d8960b44a68aa9d063686104efb/artifacts
+end_time: 1757466631309
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 2f629d8960b44a68aa9d063686104efb
+run_name: bedecked-ox-400
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757466610051
+status: 4
+tags: []
+user_id: fischer

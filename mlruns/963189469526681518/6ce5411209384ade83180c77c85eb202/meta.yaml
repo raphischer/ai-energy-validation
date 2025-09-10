@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/6ce5411209384ade83180c77c85eb202/artifacts
+end_time: 1757470821208
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 6ce5411209384ade83180c77c85eb202
+run_name: ambitious-sponge-297
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757470669133
+status: 3
+tags: []
+user_id: fischer

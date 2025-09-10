@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/79c28364f63c40c8b70b230fd9e3e444/artifacts
+end_time: 1757478228318
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 79c28364f63c40c8b70b230fd9e3e444
+run_name: wise-wasp-390
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757478213281
+status: 4
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/6a8cb29c129747179621a701b09e93fe/artifacts
+end_time: 1757464633514
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 6a8cb29c129747179621a701b09e93fe
+run_name: polite-newt-44
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757464478927
+status: 3
+tags: []
+user_id: fischer

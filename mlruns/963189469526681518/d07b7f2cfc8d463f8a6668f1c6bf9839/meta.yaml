@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/d07b7f2cfc8d463f8a6668f1c6bf9839/artifacts
+end_time: 1757470663220
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: d07b7f2cfc8d463f8a6668f1c6bf9839
+run_name: calm-fox-401
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757470647955
+status: 4
+tags: []
+user_id: fischer

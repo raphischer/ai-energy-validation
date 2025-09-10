@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/fb6383e2a9b4487e82c8e5646965da19/artifacts
+end_time: 1757464319681
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: fb6383e2a9b4487e82c8e5646965da19
+run_name: gifted-deer-138
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757464159948
+status: 3
+tags: []
+user_id: fischer

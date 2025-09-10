@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/6f68dd239e424dbebaf28fe774e9ba45/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 6f68dd239e424dbebaf28fe774e9ba45
+run_name: blushing-sponge-45
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757487905550
+status: 1
+tags: []
+user_id: fischer

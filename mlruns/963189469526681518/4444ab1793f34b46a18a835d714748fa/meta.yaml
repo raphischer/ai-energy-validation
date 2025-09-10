@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/4444ab1793f34b46a18a835d714748fa/artifacts
+end_time: 1757481582841
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 4444ab1793f34b46a18a835d714748fa
+run_name: charming-wren-947
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757481417945
+status: 3
+tags: []
+user_id: fischer

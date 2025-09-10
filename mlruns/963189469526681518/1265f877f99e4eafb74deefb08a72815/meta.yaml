@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/1265f877f99e4eafb74deefb08a72815/artifacts
+end_time: 1757482576867
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 1265f877f99e4eafb74deefb08a72815
+run_name: nebulous-jay-240
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757482393008
+status: 3
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/4a3577abc72b41878c5cbd67c549c269/artifacts
+end_time: 1757474066932
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 4a3577abc72b41878c5cbd67c549c269
+run_name: unleashed-bat-256
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757474042664
+status: 4
+tags: []
+user_id: fischer

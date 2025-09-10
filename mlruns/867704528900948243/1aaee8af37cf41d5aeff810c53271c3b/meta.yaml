@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/1aaee8af37cf41d5aeff810c53271c3b/artifacts
+end_time: 1757437090525
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: 1aaee8af37cf41d5aeff810c53271c3b
+run_name: ambitious-pig-356
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757436348365
+status: 4
+tags: []
+user_id: fischer

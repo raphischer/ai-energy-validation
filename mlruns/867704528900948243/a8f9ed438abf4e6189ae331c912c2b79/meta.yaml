@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/a8f9ed438abf4e6189ae331c912c2b79/artifacts
+end_time: 1757441088843
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: a8f9ed438abf4e6189ae331c912c2b79
+run_name: unleashed-newt-56
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757440155866
+status: 3
+tags: []
+user_id: fischer

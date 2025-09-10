@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/fcf5cbb6b33e4318aaa83d0fd1757d79/artifacts
+end_time: 1757478784675
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: fcf5cbb6b33e4318aaa83d0fd1757d79
+run_name: indecisive-hen-205
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757478771942
+status: 4
+tags: []
+user_id: fischer

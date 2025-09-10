@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/6148ba383b6d424c98bfddd820b9a418/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 6148ba383b6d424c98bfddd820b9a418
+run_name: worried-cow-244
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757479457605
+status: 1
+tags: []
+user_id: fischer

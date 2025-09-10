@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/f3ff7a1b2f314030b9ea9e0cf928e0ca/artifacts
+end_time: 1757483503793
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: f3ff7a1b2f314030b9ea9e0cf928e0ca
+run_name: colorful-foal-179
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757483318606
+status: 3
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/ff7ba24eccab4f0ea86d798622b4c13f/artifacts
+end_time: 1757476136191
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: ff7ba24eccab4f0ea86d798622b4c13f
+run_name: judicious-snail-639
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757476125095
+status: 4
+tags: []
+user_id: fischer

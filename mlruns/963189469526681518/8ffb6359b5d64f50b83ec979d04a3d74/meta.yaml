@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/8ffb6359b5d64f50b83ec979d04a3d74/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 8ffb6359b5d64f50b83ec979d04a3d74
+run_name: big-worm-206
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757484969936
+status: 1
+tags: []
+user_id: fischer

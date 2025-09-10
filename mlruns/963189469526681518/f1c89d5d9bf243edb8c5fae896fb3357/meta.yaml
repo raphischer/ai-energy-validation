@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/f1c89d5d9bf243edb8c5fae896fb3357/artifacts
+end_time: 1757481378441
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: f1c89d5d9bf243edb8c5fae896fb3357
+run_name: invincible-roo-884
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757481365913
+status: 4
+tags: []
+user_id: fischer

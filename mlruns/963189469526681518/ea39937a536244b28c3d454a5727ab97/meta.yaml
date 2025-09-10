@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/ea39937a536244b28c3d454a5727ab97/artifacts
+end_time: 1757463779973
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: ea39937a536244b28c3d454a5727ab97
+run_name: casual-mole-389
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757463595616
+status: 3
+tags: []
+user_id: fischer

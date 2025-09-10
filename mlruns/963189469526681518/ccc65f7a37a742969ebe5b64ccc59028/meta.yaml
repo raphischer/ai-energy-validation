@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/ccc65f7a37a742969ebe5b64ccc59028/artifacts
+end_time: 1757462932926
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: ccc65f7a37a742969ebe5b64ccc59028
+run_name: adventurous-crab-185
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757462917748
+status: 4
+tags: []
+user_id: fischer

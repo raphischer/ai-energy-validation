@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/25070f31c68e4c3db2134392a331ebbc/artifacts
+end_time: 1757469008351
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 25070f31c68e4c3db2134392a331ebbc
+run_name: grandiose-gull-225
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757468992356
+status: 4
+tags: []
+user_id: fischer

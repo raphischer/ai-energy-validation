@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/20e215e5f8f94fd6a44d90e6ddb59b67/artifacts
+end_time: 1757462751393
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 20e215e5f8f94fd6a44d90e6ddb59b67
+run_name: persistent-cub-574
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757462734788
+status: 4
+tags: []
+user_id: fischer

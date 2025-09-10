@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/6d2239304e6a4e45bcdf4662b657bf45/artifacts
+end_time: 1757477175622
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 6d2239304e6a4e45bcdf4662b657bf45
+run_name: adventurous-lamb-866
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757477010655
+status: 3
+tags: []
+user_id: fischer

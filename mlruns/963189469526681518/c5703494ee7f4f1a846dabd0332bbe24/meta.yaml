@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/c5703494ee7f4f1a846dabd0332bbe24/artifacts
+end_time: 1757473633155
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: c5703494ee7f4f1a846dabd0332bbe24
+run_name: adventurous-slug-343
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757473467964
+status: 3
+tags: []
+user_id: fischer

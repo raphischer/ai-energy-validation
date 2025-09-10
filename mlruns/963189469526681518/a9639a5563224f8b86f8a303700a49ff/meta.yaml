@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/a9639a5563224f8b86f8a303700a49ff/artifacts
+end_time: 1757473774355
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: a9639a5563224f8b86f8a303700a49ff
+run_name: powerful-lynx-453
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757473762369
+status: 4
+tags: []
+user_id: fischer

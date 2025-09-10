@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/93798794d42249acb9a4d90fa5d417c1/artifacts
+end_time: 1757463974793
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 93798794d42249acb9a4d90fa5d417c1
+run_name: victorious-bird-953
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757463956934
+status: 4
+tags: []
+user_id: fischer

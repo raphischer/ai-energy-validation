@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/ed3c2a4c3ddc45b9943f0e12ec023263/artifacts
+end_time: 1757469553753
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: ed3c2a4c3ddc45b9943f0e12ec023263
+run_name: thundering-ox-351
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757469534066
+status: 4
+tags: []
+user_id: fischer

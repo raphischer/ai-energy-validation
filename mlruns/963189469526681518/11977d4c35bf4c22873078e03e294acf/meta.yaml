@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/11977d4c35bf4c22873078e03e294acf/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 11977d4c35bf4c22873078e03e294acf
+run_name: sincere-sow-547
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757484239791
+status: 1
+tags: []
+user_id: fischer

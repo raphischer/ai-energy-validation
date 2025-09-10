@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/8b297314f4794f7f9349e935b4c29649/artifacts
+end_time: 1757473654453
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 8b297314f4794f7f9349e935b4c29649
+run_name: rogue-flea-295
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757473637278
+status: 4
+tags: []
+user_id: fischer

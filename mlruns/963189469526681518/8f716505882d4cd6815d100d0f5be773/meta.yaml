@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/8f716505882d4cd6815d100d0f5be773/artifacts
+end_time: 1757489741565
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 8f716505882d4cd6815d100d0f5be773
+run_name: mercurial-chimp-293
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757489730629
+status: 4
+tags: []
+user_id: fischer

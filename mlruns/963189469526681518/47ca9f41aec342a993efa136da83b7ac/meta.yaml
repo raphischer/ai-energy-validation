@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/47ca9f41aec342a993efa136da83b7ac/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 47ca9f41aec342a993efa136da83b7ac
+run_name: capable-smelt-415
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757488270377
+status: 1
+tags: []
+user_id: fischer

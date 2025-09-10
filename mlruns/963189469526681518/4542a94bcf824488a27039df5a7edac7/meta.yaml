@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/4542a94bcf824488a27039df5a7edac7/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 4542a94bcf824488a27039df5a7edac7
+run_name: peaceful-penguin-631
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757483874739
+status: 1
+tags: []
+user_id: fischer

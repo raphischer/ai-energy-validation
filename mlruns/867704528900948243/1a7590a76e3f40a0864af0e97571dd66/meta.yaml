@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/1a7590a76e3f40a0864af0e97571dd66/artifacts
+end_time: 1757440153274
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: 1a7590a76e3f40a0864af0e97571dd66
+run_name: hilarious-dove-67
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757438949674
+status: 3
+tags: []
+user_id: fischer

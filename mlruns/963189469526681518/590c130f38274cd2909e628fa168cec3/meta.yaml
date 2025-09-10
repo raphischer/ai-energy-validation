@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/590c130f38274cd2909e628fa168cec3/artifacts
+end_time: 1757473973228
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 590c130f38274cd2909e628fa168cec3
+run_name: salty-squirrel-143
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757473801187
+status: 3
+tags: []
+user_id: fischer

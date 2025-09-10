@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/4c81a06e4af54cf0ad8467bb6a1609f0/artifacts
+end_time: 1757482739889
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 4c81a06e4af54cf0ad8467bb6a1609f0
+run_name: wise-swan-3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757482581826
+status: 3
+tags: []
+user_id: fischer

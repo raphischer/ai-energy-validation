@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/31ce902862e54b6aadc2c668d888dafb/artifacts
+end_time: 1757436345741
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: 31ce902862e54b6aadc2c668d888dafb
+run_name: loud-stoat-879
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757435091435
+status: 3
+tags: []
+user_id: fischer

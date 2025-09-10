@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/a7d481fd461245b2bb96885ba5e7d3e2/artifacts
+end_time: 1757482163670
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: a7d481fd461245b2bb96885ba5e7d3e2
+run_name: chill-gnat-855
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757482147728
+status: 4
+tags: []
+user_id: fischer

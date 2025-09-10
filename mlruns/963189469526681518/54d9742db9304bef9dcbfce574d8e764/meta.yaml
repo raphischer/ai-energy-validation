@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/54d9742db9304bef9dcbfce574d8e764/artifacts
+end_time: 1757480809544
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 54d9742db9304bef9dcbfce574d8e764
+run_name: sassy-hawk-540
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757480646179
+status: 3
+tags: []
+user_id: fischer

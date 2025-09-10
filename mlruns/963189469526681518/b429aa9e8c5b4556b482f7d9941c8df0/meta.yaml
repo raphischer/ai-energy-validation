@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/b429aa9e8c5b4556b482f7d9941c8df0/artifacts
+end_time: 1757470456988
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: b429aa9e8c5b4556b482f7d9941c8df0
+run_name: salty-lark-559
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757470441440
+status: 4
+tags: []
+user_id: fischer

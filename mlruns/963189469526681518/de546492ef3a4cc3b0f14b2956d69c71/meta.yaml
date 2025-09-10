@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/de546492ef3a4cc3b0f14b2956d69c71/artifacts
+end_time: 1757463992728
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: de546492ef3a4cc3b0f14b2956d69c71
+run_name: amusing-turtle-83
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757463980669
+status: 4
+tags: []
+user_id: fischer

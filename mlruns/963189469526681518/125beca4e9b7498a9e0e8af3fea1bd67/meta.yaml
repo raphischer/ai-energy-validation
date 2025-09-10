@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/125beca4e9b7498a9e0e8af3fea1bd67/artifacts
+end_time: 1757465023582
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 125beca4e9b7498a9e0e8af3fea1bd67
+run_name: wise-goose-126
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757464826919
+status: 3
+tags: []
+user_id: fischer

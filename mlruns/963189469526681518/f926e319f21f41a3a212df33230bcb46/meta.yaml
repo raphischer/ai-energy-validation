@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/f926e319f21f41a3a212df33230bcb46/artifacts
+end_time: 1757469591720
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: f926e319f21f41a3a212df33230bcb46
+run_name: luxuriant-foal-121
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757469577564
+status: 4
+tags: []
+user_id: fischer

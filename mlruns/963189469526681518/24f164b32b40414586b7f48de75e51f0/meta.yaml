@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/24f164b32b40414586b7f48de75e51f0/artifacts
+end_time: 1757470258488
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 24f164b32b40414586b7f48de75e51f0
+run_name: victorious-ant-5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757470242278
+status: 4
+tags: []
+user_id: fischer

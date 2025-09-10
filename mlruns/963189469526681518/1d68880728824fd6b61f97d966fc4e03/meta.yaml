@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/1d68880728824fd6b61f97d966fc4e03/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 1d68880728824fd6b61f97d966fc4e03
+run_name: bittersweet-bear-956
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757485699795
+status: 1
+tags: []
+user_id: fischer

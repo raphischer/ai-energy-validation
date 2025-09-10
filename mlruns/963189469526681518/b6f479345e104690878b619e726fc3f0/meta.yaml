@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/b6f479345e104690878b619e726fc3f0/artifacts
+end_time: 1757475676526
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: b6f479345e104690878b619e726fc3f0
+run_name: tasteful-wolf-723
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757475491436
+status: 3
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/aa83fb6a95454685b350023d12c30c65/artifacts
+end_time: 1757472881941
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: aa83fb6a95454685b350023d12c30c65
+run_name: treasured-mouse-620
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757472870148
+status: 4
+tags: []
+user_id: fischer

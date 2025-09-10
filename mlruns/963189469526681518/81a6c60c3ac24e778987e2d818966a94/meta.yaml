@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/81a6c60c3ac24e778987e2d818966a94/artifacts
+end_time: 1757475435723
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 81a6c60c3ac24e778987e2d818966a94
+run_name: amazing-smelt-124
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757475415701
+status: 4
+tags: []
+user_id: fischer

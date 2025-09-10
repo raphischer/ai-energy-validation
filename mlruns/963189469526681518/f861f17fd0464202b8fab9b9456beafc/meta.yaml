@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/f861f17fd0464202b8fab9b9456beafc/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: f861f17fd0464202b8fab9b9456beafc
+run_name: thoughtful-snail-602
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757489365370
+status: 1
+tags: []
+user_id: fischer

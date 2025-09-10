@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/6a7479e4551b4191b3ccc7fdf8fc861b/artifacts
+end_time: 1757482387086
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 6a7479e4551b4191b3ccc7fdf8fc861b
+run_name: charming-skink-733
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757482370454
+status: 4
+tags: []
+user_id: fischer

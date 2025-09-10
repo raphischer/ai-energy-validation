@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/7f796f27d90a45a0998cf008ec8bda75/artifacts
+end_time: 1757475385340
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 7f796f27d90a45a0998cf008ec8bda75
+run_name: calm-bee-620
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757475367994
+status: 4
+tags: []
+user_id: fischer

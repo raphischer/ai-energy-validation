@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/40f08761150b4af5a6f2ab1ee317b4b3/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 40f08761150b4af5a6f2ab1ee317b4b3
+run_name: serious-ray-839
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757490112979
+status: 1
+tags: []
+user_id: fischer

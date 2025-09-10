@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/08b90ba6ac6a4f5aa18cbd61ef794992/artifacts
+end_time: 1757470271526
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 08b90ba6ac6a4f5aa18cbd61ef794992
+run_name: skillful-shrike-644
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757470264382
+status: 4
+tags: []
+user_id: fischer

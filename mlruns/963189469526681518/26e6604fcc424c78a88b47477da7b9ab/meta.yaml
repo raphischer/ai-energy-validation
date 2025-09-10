@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/26e6604fcc424c78a88b47477da7b9ab/artifacts
+end_time: 1757472307666
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 26e6604fcc424c78a88b47477da7b9ab
+run_name: nervous-kit-394
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757472121893
+status: 3
+tags: []
+user_id: fischer

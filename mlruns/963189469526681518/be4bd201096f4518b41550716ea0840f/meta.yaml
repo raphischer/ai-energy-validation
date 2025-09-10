@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/be4bd201096f4518b41550716ea0840f/artifacts
+end_time: 1757472322962
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: be4bd201096f4518b41550716ea0840f
+run_name: capricious-snail-794
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757472311518
+status: 4
+tags: []
+user_id: fischer

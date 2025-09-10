@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/15d1ed18be8d4999ac14e9f4e9d3b893/artifacts
+end_time: 1757471227713
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 15d1ed18be8d4999ac14e9f4e9d3b893
+run_name: omniscient-cow-93
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757471213506
+status: 4
+tags: []
+user_id: fischer

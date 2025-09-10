@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/6a3aac33fa9f4d65aa072f7c046e4fa7/artifacts
+end_time: 1757472725968
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 6a3aac33fa9f4d65aa072f7c046e4fa7
+run_name: legendary-mink-804
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757472544065
+status: 3
+tags: []
+user_id: fischer

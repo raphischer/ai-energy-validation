@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/13f873b7ce3f4b6cbc8326c0d78b6f7f/artifacts
+end_time: 1757468142635
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 13f873b7ce3f4b6cbc8326c0d78b6f7f
+run_name: awesome-goat-298
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757467979477
+status: 3
+tags: []
+user_id: fischer

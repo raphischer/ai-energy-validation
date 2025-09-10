@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/3d833d5f4e6241d5b99ea8a3679cc998/artifacts
+end_time: 1757475362031
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 3d833d5f4e6241d5b99ea8a3679cc998
+run_name: whimsical-snake-818
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757475339971
+status: 4
+tags: []
+user_id: fischer

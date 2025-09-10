@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/1e043e0b3f7348b6b64711131a8b0621/artifacts
+end_time: 1757465871616
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 1e043e0b3f7348b6b64711131a8b0621
+run_name: casual-hen-602
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757465858663
+status: 4
+tags: []
+user_id: fischer

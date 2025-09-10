@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/03be27e10aa44c7191c03024e0725476/artifacts
+end_time: 1757477531309
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 03be27e10aa44c7191c03024e0725476
+run_name: placid-swan-765
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757477374247
+status: 3
+tags: []
+user_id: fischer

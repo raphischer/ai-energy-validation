@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/71af79c7500e4cc2910eba6e18ca8867/artifacts
+end_time: 1757466253581
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 71af79c7500e4cc2910eba6e18ca8867
+run_name: unequaled-hawk-365
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757466090810
+status: 3
+tags: []
+user_id: fischer

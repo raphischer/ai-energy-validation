@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/cf819978a9ea4854bd1e2ef4b7f07af4/artifacts
+end_time: 1757463954262
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: cf819978a9ea4854bd1e2ef4b7f07af4
+run_name: victorious-moth-374
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757463804811
+status: 3
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/5ba276e6262a4b1990011a2f0be6b008/artifacts
+end_time: 1757476083616
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 5ba276e6262a4b1990011a2f0be6b008
+run_name: hilarious-shark-527
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757475919218
+status: 3
+tags: []
+user_id: fischer

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/c4b6f97807d84b37a652be9d8da3ca72/artifacts
+end_time: 1757470071636
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: c4b6f97807d84b37a652be9d8da3ca72
+run_name: puzzled-hawk-611
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757470058581
+status: 4
+tags: []
+user_id: fischer

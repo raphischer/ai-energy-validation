@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/23fca87882534ba992a36378807f71ff/artifacts
+end_time: 1757467801364
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 23fca87882534ba992a36378807f71ff
+run_name: magnificent-deer-384
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757467617710
+status: 3
+tags: []
+user_id: fischer

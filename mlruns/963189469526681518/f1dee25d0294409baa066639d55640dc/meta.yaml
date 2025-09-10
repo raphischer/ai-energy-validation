@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/f1dee25d0294409baa066639d55640dc/artifacts
+end_time: 1757473082651
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: f1dee25d0294409baa066639d55640dc
+run_name: hilarious-goat-374
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757473064710
+status: 4
+tags: []
+user_id: fischer

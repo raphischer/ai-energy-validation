@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/aa7cf28d9d934c84947a46390ba69af3/artifacts
+end_time: 1757463428068
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: aa7cf28d9d934c84947a46390ba69af3
+run_name: enthused-owl-623
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757463411237
+status: 4
+tags: []
+user_id: fischer

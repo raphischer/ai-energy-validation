@@ -30,6 +30,7 @@ if __name__ == '__main__':
     parser.add_argument("--seconds", type=int, default=120, help="number of seconds to profile model on a subset of the data -- 0 process complete")
     args = parser.parse_args()
     mlflow.log_dict(args.__dict__, 'config.json')
+    tracker = OfflineEmissionsTracker(measure_power_secs=args.measure_power_secs, log_level='error', country_iso_code="DEU")
 
     # log important params
     params = {
@@ -64,7 +65,6 @@ if __name__ == '__main__':
     times, n_samples, tokens = [], 0, {'in': [], 'out': []}
 
     # evaluate queries
-    tracker = OfflineEmissionsTracker(measure_power_secs=args.measure_power_secs, log_level='error', country_iso_code="DEU")
     save_webcam_image("capture_start.jpg")
     tracker.start()
     print_colored_block(f'STARTING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}')
@@ -80,6 +80,7 @@ if __name__ == '__main__':
         times.append(time.time() - t0)
         n_samples += 1
         remaining = args.seconds - sum(times) if args.seconds and len(times) < 5 else args.seconds - (sum(times) + np.average(times))
+        print(f"\rProcessed queries: {n_samples} | Remaining time: {remaining:.1f}s", end='', flush=True)
         if args.seconds and remaining < 0:
             break
     print_colored_block(f'STOPPING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}', ok=False)

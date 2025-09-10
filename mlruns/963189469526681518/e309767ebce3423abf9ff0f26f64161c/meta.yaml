@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/e309767ebce3423abf9ff0f26f64161c/artifacts
+end_time: 1757464157120
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: e309767ebce3423abf9ff0f26f64161c
+run_name: persistent-bass-240
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757463998624
+status: 3
+tags: []
+user_id: fischer

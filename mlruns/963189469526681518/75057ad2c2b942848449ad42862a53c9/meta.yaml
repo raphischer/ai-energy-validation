@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/75057ad2c2b942848449ad42862a53c9/artifacts
+end_time: 1757477878768
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 75057ad2c2b942848449ad42862a53c9
+run_name: silent-sponge-860
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757477705130
+status: 3
+tags: []
+user_id: fischer

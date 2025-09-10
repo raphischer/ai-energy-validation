@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/2d1c502420b4456d84adf3c7cf6de4b3/artifacts
+end_time: 1757454700565
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: 2d1c502420b4456d84adf3c7cf6de4b3
+run_name: industrious-doe-158
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757453776967
+status: 3
+tags: []
+user_id: fischer

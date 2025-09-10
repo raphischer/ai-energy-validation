@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/7505f33bf3a442b79ea286b982015d12/artifacts
+end_time: 1757445853509
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: 7505f33bf3a442b79ea286b982015d12
+run_name: adaptable-shrike-912
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757444818072
+status: 3
+tags: []
+user_id: fischer

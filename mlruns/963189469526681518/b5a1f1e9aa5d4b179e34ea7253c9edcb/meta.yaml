@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/b5a1f1e9aa5d4b179e34ea7253c9edcb/artifacts
+end_time: 1757462707249
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: b5a1f1e9aa5d4b179e34ea7253c9edcb
+run_name: chill-moose-846
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757462697204
+status: 4
+tags: []
+user_id: fischer

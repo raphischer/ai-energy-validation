@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/cb4d1bf4d0ae4103b126eb6681c5a5c5/artifacts
+end_time: 1757431017346
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: cb4d1bf4d0ae4103b126eb6681c5a5c5
+run_name: suave-dolphin-10
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757429994104
+status: 3
+tags: []
+user_id: fischer

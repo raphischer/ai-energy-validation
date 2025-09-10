@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/963189469526681518/6a4b872dd02847abb1438370d87fae0a/artifacts
+end_time: 1757474158484
+entry_point_name: ''
+experiment_id: '963189469526681518'
+lifecycle_stage: active
+run_id: 6a4b872dd02847abb1438370d87fae0a
+run_name: respected-hawk-275
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757474145090
+status: 4
+tags: []
+user_id: fischer

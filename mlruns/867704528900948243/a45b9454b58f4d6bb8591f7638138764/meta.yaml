@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/a45b9454b58f4d6bb8591f7638138764/artifacts
+end_time: 1757448667637
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: a45b9454b58f4d6bb8591f7638138764
+run_name: gentle-fowl-981
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757447743349
+status: 3
+tags: []
+user_id: fischer

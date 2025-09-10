@@ -1,0 +1,14 @@
+artifact_uri: file:///home/fischer/repos/ai-energy-validation/mlruns/867704528900948243/6670427067da4f6fb311f391a547cd90/artifacts
+end_time: 1757442963278
+entry_point_name: ''
+experiment_id: '867704528900948243'
+lifecycle_stage: active
+run_id: 6670427067da4f6fb311f391a547cd90
+run_name: kindly-skunk-413
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1757442049617
+status: 3
+tags: []
+user_id: fischer
