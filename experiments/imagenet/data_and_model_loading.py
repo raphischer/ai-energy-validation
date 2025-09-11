@@ -87,13 +87,20 @@ def load_data_and_model(data_path, model_name=None, variant='imagenet2012', batc
         return None, ds, _
     preprocessor = load_prepr(model_name)
     ds = ds.map(preprocessor)
+    print('loaded data')
 
     # model
-    model = KERAS_MODELS[model_name](weights='imagenet')
+    if model_name == 'VGG16':
+        print('skip auto download')
+        model = KERAS_MODELS[model_name](weights='/home/fischer/.keras/models/vgg16_weights_tf_dim_ordering_tf_kernels.h5')
+    else:
+        model = KERAS_MODELS[model_name](weights='imagenet')
+    print('loaded mod1')
     criterion = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
     optimizer = tf.keras.optimizers.SGD()
     metrics = ['sparse_categorical_accuracy', 'sparse_top_k_categorical_accuracy']
     model.compile(optimizer=optimizer, loss=criterion, metrics=metrics)
+    print('loaded mod2')
 
     # data batching
     if not isinstance(batch_size, int) or batch_size <= 0: # use given

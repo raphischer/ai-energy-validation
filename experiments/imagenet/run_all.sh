@@ -38,7 +38,7 @@ do
                 fi
             done
             # Save experiment data to CSV
-            mlflow experiments csv -x $exp_id > "$exp_name.csv"
+            mlflow experiments csv -x $exp_id > "results/$exp_name.csv"
         done
     done
 done

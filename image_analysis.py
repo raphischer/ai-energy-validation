@@ -2,8 +2,8 @@ import argparse
 import os
 import warnings
 import time
+import shutil
 
-from tqdm import tqdm
 import numpy as np
 import pandas as pd
 import cv2
@@ -118,7 +118,8 @@ def interactive_preprocessing_with_ocr(images, get_ocr):
     kernel_size = cv2.getTrackbarPos('Kernel Size', 'Preprocessing and OCR')
     erosion_iterations = cv2.getTrackbarPos('Erosion Iterations', 'Preprocessing and OCR')
     cv2.destroyAllWindows()
-    return lambda im: apply_preprocessing(im, block_size, c_value, kernel_size, erosion_iterations)
+    prep_params = (block_size, c_value, kernel_size, erosion_iterations)
+    return lambda im: apply_preprocessing(im, block_size, c_value, kernel_size, erosion_iterations), prep_params
 
 def detect_ocr(single_frame, ocr_func, preprocessor):
     # TODO speed up by merging all images, preprocessing them all together, and doing a row-wise ocr detection
@@ -155,101 +156,109 @@ def get_manual_ocr(image, frame_name, next_known, width=100, height=12):
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser(description="Match the report of an mlflow experiment with the captured webcam images.")
-    argparser.add_argument("--report_fname", default="ollama_600_2025-09-04_07-52-24.csv", type=str, help="Path to the input video file")
-    argparser.add_argument("--interactive", action='store_true', help="Whether to run the interactive preprocessing parameter selection.")
-    argparser.add_argument("--tesseract_path", default=r'C:\Program Files\Tesseract-OCR\tesseract', type=str, help="Path to the tesseract executable (if not in PATH).")
-    argparser.add_argument("--tesseract_custom_data", default=r"D:\Repos\Tesseract_sevenSegmentsLetsGoDigital\Trained data", type=str, help="Path to the custom trained data for tesseract.")
+    argparser.add_argument("--interactive", default=True, help="Whether to run the interactive preprocessing parameter selection.")
+    argparser.add_argument("--tesseract_path", default=None, type=str, help="Path to the tesseract executable (if not in PATH).")
+    argparser.add_argument("--tesseract_custom_data", default=r"/home/fischer/repos/Tesseract_sevenSegmentsLetsGoDigital/Trained data", type=str, help="Path to the custom trained data for tesseract.")
     args = argparser.parse_args()
 
-    # load report
-    report = pd.read_csv(args.report_fname).dropna().set_index('run_id').sort_values('start_time')
-    # make sure that paths align (could happen when analysis takes place on a separate machine)
-    report['artifact_uri'] = report['artifact_uri'].apply(lambda x: os.path.join(os.path.dirname(__file__), 'mlruns', *x.split('mlruns/')[1].split('/')))
+    for report_fname in os.listdir(os.path.join(os.path.dirname(__file__), 'results')):
+        if 'csv' in report_fname and 'image_analysis' not in report_fname:
 
-    # load frame names
-    frame_names = []
-    for uri in report['artifact_uri']:
-        for fname in ['capture_start.jpg', 'capture_stop.jpg']:
-            assert os.path.exists(os.path.join(uri, fname)), f'File {os.path.join(uri, fname)} does not exist!'
-            frame_names.append(os.path.join(uri, fname))
-    
-    # init tesseract
-    pytesseract.pytesseract.tesseract_cmd = args.tesseract_path
-    try:
-        pytesseract.image_to_string(cv2.imread(frame_names[0]))
-    except Exception as e:
-        print('There was an error with pytesseract - make sure to install tesseract and adjust the path correctly via --tesseract_path')
-        print(e)
-    os.environ['TESSDATA_PREFIX'] = args.tesseract_custom_data
-    ocr_func = lambda im: pytesseract.image_to_string(im, lang='lets', config='--psm 6').replace('\n', '').replace(',', '.').replace(' ', '').replace('-', '')
+            # load report
+            report = pd.read_csv(os.path.join(os.path.dirname(__file__), 'results', report_fname))
+            report = report.dropna().set_index('run_id').sort_values('start_time')
+            # make sure that paths align (could happen when analysis takes place on a separate machine)
+            report['artifact_uri'] = report['artifact_uri'].apply(lambda x: os.path.join(os.path.dirname(__file__), 'mlruns', *x.split('mlruns/')[1].split('/')))
+            img_dir = os.path.join(os.path.dirname(__file__), 'results', report_fname.replace('.csv', ''))
+            if not os.path.isdir(img_dir):
+                os.makedirs(img_dir, exist_ok=True)
+            # load frame names
+            frame_names = []
+            for uri in report['artifact_uri']:
+                for fname in ['capture_start.jpg', 'capture_stop.jpg']:
+                    frame_names.append( os.path.join(img_dir, f'{os.path.basename(os.path.dirname(uri))}_{fname}') )
+                    if not os.path.isfile(frame_names[-1]): # on execution environment: copy frames from mlflow logs
+                        assert os.path.exists(os.path.join(uri, fname)), f'File {os.path.join(uri, fname)} does not exist!'
+                        shutil.copyfile(os.path.join(uri, fname), frame_names[-1])
+            
+            # # init tesseract
+            # if args.tesseract_path:
+            #     pytesseract.pytesseract.tesseract_cmd = args.tesseract_path
+            # try:
+            #     pytesseract.image_to_string(cv2.imread(frame_names[0]))
+            # except Exception as e:
+            #     print('There was an error with pytesseract - make sure to install tesseract and adjust the path correctly via --tesseract_path')
+            #     print(e)
+            # os.environ['TESSDATA_PREFIX'] = args.tesseract_custom_data
+            # ocr_func = lambda im: pytesseract.image_to_string(im, lang='lets', config='--psm 6').replace('\n', '').replace(',', '.').replace(' ', '').replace('-', '')
 
-    # use default roi and preprocessing, or finetune interactively
-    x1, y1, x2, y2 = (228, 154, 426, 230)
-    preprocessor = lambda im: apply_preprocessing(im, 21, 10, 1, 1)
-    if args.interactive:
-        roi = select_roi(cv2.imread(frame_names[0]))
-        x1, y1, x2, y2 = roi
-        roi_frames = [cv2.imread(fname)[y1:y2, x1:x2] for fname in frame_names]
-        test_frames = [cv2.imread(fr)[y1:y2, x1:x2] for fr in np.random.choice(frame_names, size=7)]
-        preprocessor = interactive_preprocessing_with_ocr(test_frames, ocr_func)
+            # # use default roi and preprocessing, or finetune interactively
+            # x1, y1, x2, y2 = (200, 161, 397, 229)
+            # preprocessor = lambda im: apply_preprocessing(im, 50, 14, 1, 1)
+            # if args.interactive:
+            #     roi = select_roi(cv2.imread(frame_names[0]))
+            #     x1, y1, x2, y2 = roi
+            #     roi_frames = [cv2.imread(fname)[y1:y2, x1:x2] for fname in frame_names]
+            #     test_frames = [cv2.imread(fr)[y1:y2, x1:x2] for fr in np.random.choice(frame_names, size=7)]
+            #     preprocessor, params = interactive_preprocessing_with_ocr(test_frames, ocr_func)
 
-    # run complete ocr detection with manual correction
-    ocr_out = {}
-    for idx, frame_name in tqdm(enumerate(frame_names)):
-        prev_name = frame_names[idx-1]
-        error, val = False, np.nan
-        ocr, frame = detect_ocr(cv2.imread(frame_name)[y1:y2, x1:x2], ocr_func, preprocessor)
-        try:
-            assert len(ocr) == 5
-            val = float(ocr)
-            if idx > 0 and isinstance(ocr_out[prev_name]['value'], float):
-                assert ocr_out[prev_name]['value'] <= val
-        except Exception:
-            last_known = ocr_out[prev_name]['value'] if idx > 0 else 0
-            while not error:
-                ocr = get_manual_ocr(frame, frame_name, f'last number was {last_known}')
-                try:
-                    val = float(ocr)
-                    error = True
-                except Exception:
-                    print(f'Incorrect input "{ocr}"!')
-        ocr_out[frame_name] = {'ocr': ocr, 'value': val, 'manual': error}
-        ocr_fname = frame_name.replace('frame', 'ocr').replace('.jpg', f'_{ocr.replace(".", "-")}.jpg')
-        cv2.imwrite(ocr_fname, frame)
+            # # run complete ocr detection with manual correction
+            # ocr_out = {}
+            # for idx, frame_name in enumerate(frame_names):
+            #     prev_name = frame_names[idx-1]
+            #     error, val = False, np.nan
+            #     ocr, frame = detect_ocr(cv2.imread(frame_name)[y1:y2, x1:x2], ocr_func, preprocessor)
+            #     try:
+            #         assert len(ocr) == 5
+            #         val = float(ocr)
+            #         if idx > 0 and isinstance(ocr_out[prev_name]['value'], float):
+            #             assert ocr_out[prev_name]['value'] <= val
+            #     except Exception:
+            #         last_known = ocr_out[prev_name]['value'] if idx > 0 else 0
+            #         while not error:
+            #             ocr = get_manual_ocr(frame, frame_name, f'last number was {last_known}')
+            #             try:
+            #                 val = float(ocr)
+            #                 error = True
+            #             except Exception:
+            #                 print(f'Incorrect input "{ocr}"!')
+            #     ocr_out[frame_name] = {'ocr': ocr, 'value': val, 'manual': error}
+            #     ocr_fname = frame_name.replace('frame', 'ocr').replace('.jpg', f'_{ocr.replace(".", "-")}.jpg')
+            #     cv2.imwrite(ocr_fname, frame)
 
-    # traverse backwards to find any new errors relating to manual correction
-    print('Now traversing backwards to find additional errors')
-    for idx, frame_name in tqdm(enumerate(reversed(frame_names))):
-        if idx == len(ocr_out) - 1 or idx == 0:
-            continue
-        prev_name, next_name = frame_names[len(ocr_out)-idx-2], frame_names[len(ocr_out)-idx]
-        last, current, next = ocr_out[prev_name], ocr_out[frame_name], ocr_out[next_name]
-        if current['value'] < last['value'] or current['value'] > next['value']:
-            error = False
-            ocr, frame = detect_ocr(cv2.imread(frame_name)[y1:y2, x1:x2], ocr_func, preprocessor)
-            while not error:
-                manual_input = get_manual_ocr(frame, frame_name, f'previous is {last["value"]}, next is {next["value"]}')
-                try:
-                    ocr_out[frame_name]['value'] = float(manual_input)
-                except Exception:
-                    print(f'Incorrect input "{manual_input}"!')
-                try:
-                    assert ocr_out[frame_name]['value'] < next['value']
-                    ocr_out[frame_name]['manual'] = True
-                    error = True
-                    # delete and re-write already written ocr file
-                    ocr_fname = frame_name.replace('frame', 'ocr').replace('.jpg', f'_{ocr.replace(".", "-")}.jpg')
-                    os.remove(ocr_fname)
-                    ocr_fname = frame_name.replace('frame', 'ocr').replace('.jpg', f'_{manual_input.replace(".", "-")}.jpg')
-                    cv2.imwrite(ocr_fname, frame)
-                except Exception:
-                    print(f'Incorrect input - input number ({manual_input}) cannot be bigger than the following value ({next["value"]})!')
+            # # traverse backwards to find any new errors relating to manual correction
+            # print('Now traversing backwards to find additional errors')
+            # for idx, frame_name in enumerate(reversed(frame_names)):
+            #     if idx == len(ocr_out) - 1 or idx == 0:
+            #         continue
+            #     prev_name, next_name = frame_names[len(ocr_out)-idx-2], frame_names[len(ocr_out)-idx]
+            #     last, current, next = ocr_out[prev_name], ocr_out[frame_name], ocr_out[next_name]
+            #     if current['value'] < last['value'] or current['value'] > next['value']:
+            #         error = False
+            #         ocr, frame = detect_ocr(cv2.imread(frame_name)[y1:y2, x1:x2], ocr_func, preprocessor)
+            #         while not error:
+            #             manual_input = get_manual_ocr(frame, frame_name, f'previous is {last["value"]}, next is {next["value"]}')
+            #             try:
+            #                 ocr_out[frame_name]['value'] = float(manual_input)
+            #             except Exception:
+            #                 print(f'Incorrect input "{manual_input}"!')
+            #             try:
+            #                 assert ocr_out[frame_name]['value'] < next['value']
+            #                 ocr_out[frame_name]['manual'] = True
+            #                 error = True
+            #                 # delete and re-write already written ocr file
+            #                 ocr_fname = frame_name.replace('frame', 'ocr').replace('.jpg', f'_{ocr.replace(".", "-")}.jpg')
+            #                 os.remove(ocr_fname)
+            #                 ocr_fname = frame_name.replace('frame', 'ocr').replace('.jpg', f'_{manual_input.replace(".", "-")}.jpg')
+            #                 cv2.imwrite(ocr_fname, frame)
+            #             except Exception:
+            #                 print(f'Incorrect input - input number ({manual_input}) cannot be bigger than the following value ({next["value"]})!')
 
-    # write the image analysis summary
-    df = pd.DataFrame(ocr_out).transpose()
-    df['val_diff'] = df["value"].diff()
-    df['still_errors'] = df['val_diff'] < 0
-    df.to_csv(args.report_fname.replace('.csv', '_image_analysis.csv'))
-    if not df["value"].is_monotonic_increasing:
-        print('Still encountered errors in the following rows and frames:\n')
-        print(df[df['val_diff'] < 0].index)
+            # # write the image analysis summary
+            # df = pd.DataFrame(ocr_out).transpose()
+            # df['val_diff'] = df["value"].diff()
+            # df['still_errors'] = df['val_diff'] < 0
+            # df.to_csv(args.report_fname.replace('.csv', '_image_analysis.csv'))
+            # if not df["value"].is_monotonic_increasing:
+            #     print('Still encountered errors in the following rows and frames:\n')
+            #     print(df[df['val_diff'] < 0].index)

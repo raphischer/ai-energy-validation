@@ -25,12 +25,11 @@ if __name__ == '__main__':
     parser.add_argument("--experiment", default="/home/fischer/repos/mlprops/experiments/imagenet/")
     parser.add_argument("--model", default="gemma3:1b")
     parser.add_argument('--temperature', type=float, default=0.7)
-    parser.add_argument("--measure_power_secs", default=0.5)
     parser.add_argument("--nogpu", type=int, default=0)
     parser.add_argument("--seconds", type=int, default=120, help="number of seconds to profile model on a subset of the data -- 0 process complete")
     args = parser.parse_args()
     mlflow.log_dict(args.__dict__, 'config.json')
-    tracker = OfflineEmissionsTracker(measure_power_secs=args.measure_power_secs, log_level='error', country_iso_code="DEU")
+    tracker = OfflineEmissionsTracker(log_level='error', country_iso_code="DEU")
 
     # log important params
     params = {

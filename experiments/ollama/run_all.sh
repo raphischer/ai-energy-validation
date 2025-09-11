@@ -25,7 +25,7 @@ do
         while true
         do
             echo "Running model $m on GPU $g ..."
-            timeout $(( $1 * 4 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P seconds=$1 -P temperature=$t ./experiments/ollama
+            timeout $(( $1 * 3 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P seconds=$1 -P temperature=$t ./experiments/ollama
             
             # Check if the mlflow run succeeded (exit status 0)
             if [ $? -eq 0 ]; then
@@ -37,6 +37,6 @@ do
         done
 
         # Save experiment data to CSV
-        mlflow experiments csv -x $exp_id > "$exp_name.csv"
+        mlflow experiments csv -x $exp_id > "results/$exp_name.csv"
     done
 done

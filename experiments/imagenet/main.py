@@ -2,6 +2,8 @@ import argparse
 import os
 import sys
 import time
+import multiprocessing as mp
+mp.set_start_method("spawn", force=True) # make sure that tensorflow works with mlflow and multiprocessing
 
 import numpy as np
 import mlflow
@@ -20,14 +22,15 @@ if __name__ == '__main__':
     parser.add_argument("--dataset", default=None)
     parser.add_argument("--datadir", default="/data/d1/fischer_diss/imagenet")
     parser.add_argument("--batchsize", default=None)
-    parser.add_argument("--measure_power_secs", default=0.5)
     parser.add_argument("--seconds", type=int, default=120, help="number of seconds to profile model on a subset of the data -- 0 process complete")
     args = parser.parse_args()
     mlflow.log_dict(args.__dict__, 'config.json')
+    if 'CUDA_VISIBLE_DEVICES' not in os.environ:
+        os.environ['CUDA_VISIBLE_DEVICES'] = '0'
     use_gpu = os.environ['CUDA_VISIBLE_DEVICES']
 
     # load tracker before importing tensorflow!
-    tracker = OfflineEmissionsTracker(measure_power_secs=args.measure_power_secs, log_level='warning', country_iso_code="DEU")
+    tracker = OfflineEmissionsTracker(log_level='error', country_iso_code="DEU")
     # identify batch_size and load data
     if args.batchsize:
         batch_size = int(args.batchsize)
@@ -35,12 +38,13 @@ if __name__ == '__main__':
         batch_size = lookup_batch_size(args.model) or find_ideal_batch_size(args.model, args.datadir)
     from data_and_model_loading import load_data_and_model # import also inits tensorflow, so only import now
     model, ds, meta = load_data_and_model(args.datadir, args.model, batch_size=batch_size)
-    meta['dataset'] = 'ImageNet (ILSVRC 2012)'
-    meta['task'] = 'Inference'
+    print('Loaded model')
+    meta['dataset'], meta['task'] = 'ImageNet (ILSVRC 2012)', 'Inference'
     for key, val in meta.items():
         mlflow.log_param(key, val)
-    model.evaluate(ds.take(1)) # init inference (often has some temporal overhead)
+    model.evaluate(ds.take(2)) # init inference (often has some temporal overhead)
     n_samples = 50000
+    print('Initiliazed inference')
 
     # given limit for evaluation, so only take a small subset of the data
     if args.seconds:
