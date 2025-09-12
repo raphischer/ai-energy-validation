@@ -1,13 +1,14 @@
 import argparse
 import os
 
+import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.io as pio
 
-PLOT_WIDTH = 800
+PLOT_WIDTH = 900
 PLOT_HEIGHT = PLOT_WIDTH // 3
 
 LAM_COL = [
@@ -58,11 +59,11 @@ def parse_param_count(s):
 
 if __name__ == "__main__":
     results = []
-    for fname in os.listdir(os.path.dirname(__file__)):
+    for fname in os.listdir(os.path.join(os.path.dirname(__file__), 'results')):
         if 'image_analysis.csv' in fname:
             # load results
-            video_results = pd.read_csv(fname)
-            db_orig = pd.read_csv(fname.replace('_image_analysis.csv', '.csv'))
+            video_results = pd.read_csv(os.path.join(os.path.dirname(__file__), 'results', fname))
+            db_orig = pd.read_csv(os.path.join(os.path.dirname(__file__), 'results', fname.replace('_image_analysis.csv', '.csv')))
             db_orig = db_orig.dropna().set_index('run_id').sort_values('start_time')
             properties = [col.replace('metrics.', '') for col in db_orig.columns if 'metrics' in col]
             db = db_orig.drop(columns=[col for col in db_orig.columns if 'params' not in col and 'metrics' not in col]) # drop everything that was not logged
@@ -71,14 +72,8 @@ if __name__ == "__main__":
             db['experiment'] = exp_name
             assert video_results.shape[0] == db.shape[0] * 2 # should have twice as many entries
             # unify results for comparisons
-            if exp_name == 'ollama': # replace 20.9B 8.2B 1B 3B with numbers
+            if exp_name == 'ollama': # replace 20.9B 8.2B 1B 3B etc with numbers
                 db['parameters'] = db['parameters'].apply(parse_param_count)
-                db['nogpu'] = 0
-            if exp_name == 'imagenet' and 'running_time_total' not in db.columns: # remove later
-                db['running_time_total'] = db['time_total']
-                db.drop(columns=['time_total'], inplace=True)
-                nsamples = db['running_time_total'] / db['running_time']
-                db['power_draw_total'] = db['power_draw'] * nsamples
             db['externally_measured_total'] = video_results.iloc[1::2]['val_diff'].values * 3.6e6
             results.append(db)
     # merge results
@@ -86,24 +81,57 @@ if __name__ == "__main__":
     db['static_estimate_total'] = db['running_time_total'] * 300 # based on https://mlco2.github.io/impact/ info for RTX 4090
     for col in ['static_estimate_total', 'externally_measured_total']:
         db[col.replace('_total', '')] = db[col] / db['n_samples']
-    db['static_estimate_total_diff'] = db['externally_measured_total'] - db['static_estimate_total']
-    db['codecarbon_total_diff'] = db['externally_measured_total'] - db['codecarbon_total']
-    grouped = db.groupby(['model']).first().sort_values('parameters')
-    os.makedirs('figures', exist_ok=True)
-    os.chdir('figures')
+    # calculate consumption per minute and differences
+    for field in ['static_estimate', 'codecarbon', 'externally_measured']:
+        db[f'{field}_per_min'] = db[f'{field}_total'] / db['running_time_total']
+    for field in ['static_estimate', 'codecarbon']:
+        db[f'{field}_diff'] = db['externally_measured'] - db[field]
+        db[f'{field}_total_diff'] = db['externally_measured_total'] - db[f'{field}_total']
+        db[f'{field}_rel_diff'] = db[f'{field}_diff'] / db['externally_measured'] * 100
+        db[f'{field}_total_rel_diff'] = db[f'{field}_total_diff'] / db['externally_measured_total'] * 100
+        assert np.all(np.isclose(db[f'{field}_rel_diff'], db[f'{field}_total_rel_diff']))
+    # group results
+    db_gpu = db[db['architecture'].str.contains('NVIDIA')]
+    grouped_gpu = db_gpu.sort_values('externally_measured').groupby('model').first().sort_values('parameters')
+    db_gpu_ollama = grouped_gpu[grouped_gpu['experiment'] == 'ollama']
+    db_gpu_imagenet = grouped_gpu[grouped_gpu['experiment'] == 'imagenet']
 
     # init plotting
+    os.makedirs('figures', exist_ok=True)
+    os.chdir('figures')
     fig = px.scatter(x=[0, 1, 2], y=[0, 1, 4])
     fig.write_image("dummy.pdf")
     os.remove("dummy.pdf")
 
+    # opener plot
     fname = print_init('opener')
-    fig = go.Figure([
-        go.Scatter(x=grouped.index, y=100-(grouped['static_estimate_total_diff']/grouped['externally_measured_total']*100), mode='markers', name='Static'),
-        go.Scatter(x=grouped.index, y=100-(grouped['codecarbon_total_diff']/grouped['externally_measured_total']*100), mode='markers', name='CodeCarbon'),
-    ])
-    fig.update_yaxes(title='Amount of untracked energy (%)')
+    traces = []
+    for text, col, c in [['Static (ML Impact Calculator)', 'static_estimate', SEL_COLORS[1]], ['Dynamic (CodeCarbon)', 'codecarbon', SEL_COLORS[0]]]:
+        for name, t_db, s in [['Vision', db_gpu_imagenet, 'x'], ['Language', db_gpu_ollama, 'circle']]:
+            traces.append(go.Scatter(
+                x=t_db['parameters'], y=t_db[f'{col}_rel_diff']*-1, mode='markers', marker={'symbol': s, 'color': c},
+                name=name, legendgroup=text, legendgrouptitle={'text': text}
+            ))
+    fig = go.Figure(traces)
+    fig.add_hline(y=0, line_dash="dot", annotation_text="Ground-Truth Energy Consumption")
+    fig.update_yaxes(title='Over- / Underestimation [%]')
+    fig.update_xaxes(title='Number of Model Parameters', type="log")
+    fig.update_layout(legend=dict(yanchor="top", y=1, xanchor="center", x=0.5, orientation='h'))
     finalize(fig, fname, show=True, x_scale=0.5)
+
+    # groundtruth power consumption
+    fname = print_init('groundtruth_power')
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.02)
+    for name, t_db, s, c in [['Vision', db_gpu_imagenet, 'x', SEL_COLORS[0]], ['Language', db_gpu_ollama, 'circle', SEL_COLORS[1]]]:
+        for row, field in enumerate(['externally_measured_per_min', 'externally_measured']):
+            fig.add_trace(go.Scatter(x=t_db.index, y=t_db[field], name=name, mode='markers', marker={'symbol': s, 'color': c}, showlegend=row==0),
+                          row=1+row, col=1)
+    # Set x-axis to categorical for the second row
+    fig.update_xaxes(type='category', range=[-0.8, grouped_gpu.shape[0]-0.2], row=2, col=1)
+    fig.update_yaxes(title='Energy Draw per Minute [W]', type="log", row=1, col=1)
+    fig.update_yaxes(title='Energy Draw per Sample [W]', type="log", row=2, col=1)
+    fig.update_layout(legend=dict(yanchor="top", y=1, xanchor="left", x=0, orientation='h'))
+    finalize(fig, fname, show=True, y_scale=2)
 
     grouped = db.groupby(['nogpu', 'model']).first().sort_values('parameters')
     texts = grouped.loc[0].index # .map(lambda v: '' if v in ['DenseNet121', 'EfficientNetB1', 'EfficientNetV2B0', 'EfficientNetV2B3', 'ResNet50V2', 'ResNet152V2'] else v)
