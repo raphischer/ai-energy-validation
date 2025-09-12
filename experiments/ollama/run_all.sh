@@ -7,7 +7,7 @@ exp_create_str=$(mlflow experiments create -n $exp_name)
 echo $exp_create_str
 exp_id=$(echo $exp_create_str | awk '{print $NF}')
 
-# Define model architectures to iterate over
+# Define model architectures to iterate over # replace 8b with 14b
 models=("gpt-oss:20b" "deepseek-r1:8b" "deepseek-r1:1.5b"
         "gemma3:4b" "gemma3:270m" "gemma3n:e4b"
         "qwen3:8b" "qwen3:4b" "qwen3:0.6b"
