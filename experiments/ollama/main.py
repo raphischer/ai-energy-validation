@@ -66,7 +66,7 @@ if __name__ == '__main__':
     # evaluate queries
     save_webcam_image("capture_start.jpg")
     tracker.start()
-    print_colored_block(f'STARTING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}')
+    print_colored_block(f'STARTING ENERGY PROFILING FOR   {args.model.upper()}   temperature {args.temperature} on   {"CPU" if args.nogpu else "GPU"}')
     # run inference
     for query in queries:
         t0 = time.time()
@@ -82,7 +82,7 @@ if __name__ == '__main__':
         print(f"\rProcessed queries: {n_samples} | Remaining time: {remaining:.1f}s", end='', flush=True)
         if args.seconds and remaining < 0:
             break
-    print_colored_block(f'STOPPING ENERGY PROFILING FOR   {args.model.upper()}   on   {"CPU" if args.nogpu else "GPU"}', ok=False)
+    print_colored_block(f'STOPPING ENERGY PROFILING FOR   {args.model.upper()}  temperature {args.temperature} on   {"CPU" if args.nogpu else "GPU"}', ok=False)
     tracker.stop()
     save_webcam_image("capture_stop.jpg")
 
