@@ -195,12 +195,14 @@ def run_complete_ocr(preloaded, ocr_func, preprocessor, manual_correction=False,
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser(description="Match the report of an mlflow experiment with the captured webcam images.")
     argparser.add_argument("--interactive", default=False, help="Whether to run the interactive preprocessing parameter selection.")
-    argparser.add_argument("--tesseract_path", default=r'C:\Program Files\Tesseract-OCR\tesseract', type=str, help="Path to the tesseract executable (if not in PATH).")
-    argparser.add_argument("--tesseract_custom_data", default=r"D:\Repos\Tesseract_sevenSegmentsLetsGoDigital\Trained data", type=str, help="Path to the custom trained data for tesseract.")
+    argparser.add_argument("--tesseract_path", default=None, type=str, help="Path to the tesseract executable (if not in PATH).")
+    argparser.add_argument("--tesseract_custom_data", default=r"/home/fischer/repos/Tesseract_sevenSegmentsLetsGoDigital/Trained data", type=str, help="Path to the custom trained data for tesseract.")
     args = argparser.parse_args()
 
     for report_fname in os.listdir(os.path.join(os.path.dirname(__file__), 'results')):
         if 'csv' in report_fname and 'image_analysis' not in report_fname:
+            if os.path.isfile(os.path.join(os.path.dirname(__file__), 'results', report_fname.replace('.csv', '_image_analysis.csv'))):
+                continue
 
             # load report
             report = pd.read_csv(os.path.join(os.path.dirname(__file__), 'results', report_fname))
