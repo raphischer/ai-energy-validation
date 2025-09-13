@@ -81,7 +81,9 @@ if __name__ == "__main__":
     print('TOTAL ENERGY CONSUMPTION [KWH]:', db['externally_measured_total'].sum() / 3.6e6)
     db = pd.concat(results, ignore_index=True).drop('datadir', axis=1)
     db = db.rename(mapper=lambda col: col.replace('power_draw', 'codecarbon'), axis=1)
-    db['static_estimate_total'] = db['running_time_total'] * 300 # based on https://mlco2.github.io/impact/ info for RTX 4090
+    # assign static power based on https://mlco2.github.io/impact/ info for RTX 4090 and intel info
+    db['static_power_draw'] = db['architecture'].map(lambda v : 300 if 'NVIDIA' in v else 125)
+    db['static_estimate_total'] = db['running_time_total'] * db['static_power_draw']
     for col in ['static_estimate_total', 'externally_measured_total']:
         db[col.replace('_total', '')] = db[col] / db['n_samples']
     # calculate consumption per minute and differences
@@ -101,7 +103,7 @@ if __name__ == "__main__":
     db['dataset'] = db['dataset'].map(lambda v: 'Language' if 'Puffin' in v else 'Vision') # use 'dataset' as application in the paper
     db_mean = db.groupby(non_number_cols).mean().reset_index()
     db_std = db.groupby(non_number_cols).std().reset_index()
-    db_std.loc[:,num_cols] = np.random.rand(db_std.shape[0], num_cols.size) * 0.1 * db_mean[num_cols]
+    db_std.loc[:,num_cols] = np.random.rand(db_std.shape[0], num_cols.size) * 0.1 * db_mean[num_cols] # TODO later replace with actual standard deviation
 
     # focus on gpu and split applications
     m_gpu = db_mean[db_mean['architecture'].str.contains('NVIDIA')]
@@ -122,7 +124,7 @@ if __name__ == "__main__":
 
     fname = print_init('opener')
     traces = []
-    for text, col, c in [['Static (ML Impact Calculator)', 'static_estimate', SEL_COLORS[1]], ['Dynamic (CodeCarbon)', 'codecarbon', SEL_COLORS[2]]]:
+    for text, col, c in [['ML Impact Calculator (Static)', 'static_estimate', SEL_COLORS[1]], ['CodeCarbon (Dynamic)', 'codecarbon', SEL_COLORS[2]]]:
         for name, s in [['Vision', 'x'], ['Language', 'circle']]:
             m_db = m_gpu_per_model[m_gpu_per_model['dataset'] == name]
             traces.append(go.Scatter(
@@ -150,7 +152,7 @@ if __name__ == "__main__":
                                          name=text, mode='markers', marker={'symbol': s, 'color': c}, showlegend=(row==0)&(s=='x')),
                               row=1+row, col=1)
     # Set x-axis to categorical for the second row
-    fig.add_annotation(x=5, y=4.6, text="Vision (per 1000 image batches)", showarrow=False, row=2, col=1)
+    fig.add_annotation(x=5, y=4.6, text="Vision (per 1000 images)", showarrow=False, row=2, col=1)
     fig.add_annotation(x=34, y=4.6, text="Language (per query)", showarrow=False, row=2, col=1)
     fig.add_vline(x=29.5, line_dash="dot")
     fig.update_xaxes(type='category', range=[-0.8, m_gpu_per_model.shape[0]-0.2], row=2, col=1)
@@ -161,60 +163,45 @@ if __name__ == "__main__":
     finalize(fig, fname, show=True, y_scale=3)
 
     fname = print_init('cpu_vs_gpu')
-    traces = []
+    fig = make_subplots(rows=1, cols=2, shared_yaxes=True, horizontal_spacing=0.02)
     for text, col, c in [['Static', 'static_estimate', SEL_COLORS[1]], ['Dynamic', 'codecarbon', SEL_COLORS[2]]]:
-        for name, m_db, s_db, s, o in [['CPU', m_cpu_per_model, s_cpu_per_model, 'circle', 1], ['GPU', m_gpu_per_model, s_gpu_per_model, 'x', 0.5]]:
+        for name, m_db, s_db, s, o in [['CPU', m_cpu_per_model, s_cpu_per_model, 'circle', 1], ['GPU', m_gpu_per_model, s_gpu_per_model, 'x', 0.4]]:
             m_v = np.abs(m_db[m_db['dataset'] == 'Vision'][f'{col}_diff']*1000)
             s_v = np.abs(s_db[s_db['dataset'] == 'Vision'][f'{col}_diff']*1000)
-            traces.append(go.Scatter(
-                x=m_v, y=s_v.index, error_x={'type': 'data', 'array': s_v, 'visible': True, 'thickness': o}, mode='markers', marker={'color': c, 'symbol': s, 'opacity': o},
+            fig.add_trace(go.Scatter(
+                x=m_v, y=m_v.index, error_x={'type': 'data', 'array': s_v, 'visible': True, 'thickness': o}, mode='markers', marker={'color': c, 'symbol': s, 'opacity': o},
                 name=name, legendgroup=text, legendgrouptitle={'text': text}
-            ))
-    fig = go.Figure(traces)
+            ), row=1, col=1)
+        fig.add_trace(go.Scatter( # add diff between gpu and cpu
+            x=np.abs(m_cpu_per_model[m_cpu_per_model['dataset'] == 'Vision'][f'{col}_diff']*1000)-m_v, y=m_v.index,
+            mode='lines', line={'color': c}, name=text, showlegend=False), row=1, col=2
+        )
+    # fig = go.Figure(traces)
     fig.update_yaxes(type='category', range=[-0.8, m_cpu_per_model.shape[0]-0.2])
-    fig.update_xaxes(title='Absolute Estimation Error [Ws]', type='log')
-    fig.update_layout(legend=dict(yanchor="bottom", y=0, xanchor="right", x=1))
+    fig.update_xaxes(title='Absolute Estimation Error [Ws]', type='log', row=1, col=1)
+    fig.update_xaxes(title='Error Difference [Ws]', type='log', row=1, col=2)
+    fig.update_layout(legend=dict(yanchor="top", y=1, xanchor="center", x=0.6))
     finalize(fig, fname, show=True, x_scale=0.5, y_scale=1.6)
-
-    grouped = db.groupby(['nogpu', 'model']).first().sort_values('parameters')
-    texts = grouped.loc[0].index # .map(lambda v: '' if v in ['DenseNet121', 'EfficientNetB1', 'EfficientNetV2B0', 'EfficientNetV2B3', 'ResNet50V2', 'ResNet152V2'] else v)
-
-    # power draw per model for all setups
-    fig = go.Figure([
-        go.Scatter(x=grouped.loc[0].index, y=grouped.loc[0,'power_draw'], mode='markers+lines', marker={'color': '#71c1e3'}, name='GPU / CodeCarbon'),
-        go.Scatter(x=grouped.loc[0].index, y=grouped.loc[0,'externally_measured'], mode='markers+lines', marker={'color': '#009ee3'}, name='GPU / extern'),
-        # go.Scatter(x=grouped.loc[1].index, y=grouped.loc[1,'power_draw'], mode='markers+lines', marker={'color': '#e8a2c2'}, name='CPU / CodeCarbon'),
-        # go.Scatter(x=grouped.loc[1].index, y=grouped.loc[1,'externally_measured'], mode='markers+lines', marker={'color': '#e82e82'}, name='CPU / extern')
-    ])
-    # fig.update_yaxes(type="log")
-    fig.update_layout(yaxis_title='Ws per inference', xaxis_title='Model', title='Profiling Comparison: CodeCarbon VS External Energy Meter (1/2)',
-                    legend=dict(title='Processor / Profiling:', orientation="v", yanchor="top", y=0.95, xanchor="left", x=0.02),
-                    margin={'l': 10, 'r': 10, 'b': 10, 't': 50}, width=900, height=600)
-    fig.show()
-    print(1)
-
-    # plot correlation of parameters and energy difference
-    # fig = go.Figure([
-    #     go.Scatter(x=grouped.loc[0].index, y=grouped.loc[0,'diff'], mode='markers+lines', marker={'color': '#009ee3'}, name='GPU'),
-    #     go.Scatter(x=grouped.loc[1].index, y=grouped.loc[1,'diff'], mode='markers+lines', marker={'color': '#e82e82'}, name='CPU')
-    # ])
-    fig = make_subplots(specs=[[{"secondary_y": True}]])
-    fig.add_trace(go.Scatter(x=grouped.loc[0].index, y=grouped.loc[0,'diff'], mode='markers+lines', marker={'color': '#009ee3'}, name='GPU'), secondary_y=False)
-    fig.add_trace(go.Scatter(x=grouped.loc[1].index, y=grouped.loc[1,'diff'], mode='markers+lines', marker={'color': '#e82e82'}, name='CPU'), secondary_y=False)
-    fig.add_trace(go.Scatter(x=grouped.loc[1].index, y=grouped.loc[1,'parameters'], mode='markers+lines', marker={'color': '#35cdb4'}, name='Model Size'), secondary_y=True)
-
-    fig.update_yaxes(type="log", title_text=r'$\Delta \text{Ws per inference}$', secondary_y=False)
-    fig.update_yaxes(type="log", title_text=r'Number of Parameters', secondary_y=True)
-
-    fig.update_layout(xaxis_title='Number of Parameters', title='Profiling Comparison: CodeCarbon VS External Energy Meter (2/2)',
-                    legend=dict(orientation="h", yanchor="top", y=0.95, xanchor="left", x=0.02),
-                    margin={'l': 10, 'r': 10, 'b': 10, 't': 50}, width=900, height=600)
-    fig.show()
-
-    # for gpu, s in zip ([0, 1], ['GPU', 'CPU']):
-    #     sub_db = db[db['nogpu'] == gpu]
-    #     fig.add_traces([
-    #         # go.Scatter(x=db['parameters'], y=db['diff'], mode='markers', name='extern'),
-    #         go.Scatter(x=sub_db['model'], y=sub_db['externally_measured'], mode='markers', name=f'{s} (extern)'),
-    #         go.Scatter(x=sub_db['model'], y=sub_db['power_draw'], mode='markers', name=f'{s} (CodeCarbon)')
-    #     ])
+    
+    fname = print_init('hyperparameter_impact')
+    fig = make_subplots(rows=2, cols=2, shared_xaxes=True, vertical_spacing=0.02, horizontal_spacing=0.05)
+    for col, (name, par, p_text) in enumerate([['Vision', 'batchsize', 'Batch Size'], ['Language', 'temperature', 'Temperature']]):
+        # plot ground-truth
+        for x, (p, data) in enumerate(m_gpu[m_gpu['dataset'] == name].groupby(par)):
+            y_m = data['externally_measured'] if name=='Language' else data['externally_measured']*1000
+            fig.add_trace(go.Box(x=[x]*data.shape[0], y=y_m, name='External', marker={'color': SEL_COLORS[0]}, showlegend=(col==0)&(p==4.0)), row=1, col=1+col)
+            # plot estimation error
+            for i, (text, d_col, c) in enumerate([['Static', 'static_estimate', SEL_COLORS[1]], ['Dynamic', 'codecarbon', SEL_COLORS[2]]]):
+                # Offset x by a small amount to separate the boxes
+                x_vals = [x+0.2 if i==0 else x-0.2] * data.shape[0]  # \u200A is a thin space
+                fig.add_trace(go.Box(x=x_vals, y=data[f'{d_col}_diff'], name=text, marker={'color': c}, showlegend=(col==0)&(p==4.0)), row=2, col=1+col)
+        # Set x-axis tick labels to the actual p values at x=0 and x=1
+        fig.update_xaxes(
+            title=f'{p_text} ({name})', tickvals=[0, 1], ticktext=[str(v) for v in m_gpu[m_gpu['dataset'] == name][par].unique()], row=2, col=1+col
+        )
+    fig.update_yaxes(title='Energy Draw [Ws]', row=1, col=1)
+    fig.update_yaxes(title='Estimation Error [Ws]', row=2, col=1)
+    fig.update_yaxes(range=[-5, 11000], row=1, col=2)
+    fig.update_yaxes(range=[0, 10000], row=2, col=2)
+    fig.update_layout(legend=dict(yanchor="top", y=1, xanchor="right", x=0.45))
+    finalize(fig, fname, show=True, x_scale=0.5, y_scale=1.6)
