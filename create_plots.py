@@ -133,13 +133,13 @@ if __name__ == "__main__":
             ))
     fig = go.Figure(traces)
     fig.add_hline(y=0, line_color=SEL_COLORS[0], line_dash="dot", annotation_text="Ground-Truth Energy Consumption")
-    fig.update_yaxes(title='Over- / Underestimation [%]')
+    fig.update_yaxes(title='Under- / Overestimation [%]')
     fig.update_xaxes(title='Number of Model Parameters', type="log")
     fig.update_layout(legend=dict(yanchor="top", y=1, xanchor="center", x=0.5, orientation='h'))
     finalize(fig, fname, show=True, x_scale=0.5)
 
     fname = print_init('groundtruth_power')
-    fig = make_subplots(rows=3, cols=1, shared_xaxes=True, vertical_spacing=0.02)
+    fig = make_subplots(rows=3, cols=1, shared_xaxes=True, vertical_spacing=0.015)
     for text, col, c in [['External (Ground-Truth)', 'externally_measured', SEL_COLORS[0]], ['Static (ML Impact Calculator)', 'static_estimate', SEL_COLORS[1]], ['Dynamic (CodeCarbon)', 'codecarbon', SEL_COLORS[2]]]: 
         for name, s in [['Vision', 'x'], ['Language', 'circle']]:
             m_db = m_gpu_per_model[m_gpu_per_model['dataset'] == name]
@@ -160,7 +160,7 @@ if __name__ == "__main__":
     fig.update_yaxes(title='Energy Draw [Ws]', type='log', row=2, col=1)
     fig.update_yaxes(title='Absolute Estimation Error [Ws]', type='log', row=3, col=1)
     fig.update_layout(legend=dict(yanchor="top", y=1.0, xanchor="left", x=0, orientation='h'))
-    finalize(fig, fname, show=True, y_scale=3)
+    finalize(fig, fname, show=True, y_scale=2)
 
     fname = print_init('cpu_vs_gpu')
     fig = make_subplots(rows=1, cols=2, shared_yaxes=True, horizontal_spacing=0.02)
