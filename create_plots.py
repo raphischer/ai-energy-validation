@@ -172,14 +172,16 @@ if __name__ == "__main__":
                 x=m_v, y=m_v.index, error_x={'type': 'data', 'array': s_v, 'visible': True, 'thickness': o}, mode='markers', marker={'color': c, 'symbol': s, 'opacity': o},
                 name=name, legendgroup=text, legendgrouptitle={'text': text}
             ), row=1, col=1)
-        fig.add_trace(go.Scatter( # add diff between gpu and cpu
-            x=np.abs(m_cpu_per_model[m_cpu_per_model['dataset'] == 'Vision'][f'{col}_diff']*1000)-m_v, y=m_v.index,
+        # add diff between gpu and cpu (m_v from the previous loop)
+        cpu_v = np.abs(m_cpu_per_model[m_cpu_per_model['dataset'] == 'Vision'][f'{col}_diff']*1000)
+        fig.add_trace(go.Scatter(
+            x=(cpu_v-m_v)/cpu_v*100, y=m_v.index,
             mode='lines', line={'color': c}, name=text, showlegend=False), row=1, col=2
         )
     # fig = go.Figure(traces)
     fig.update_yaxes(type='category', range=[-0.8, m_cpu_per_model.shape[0]-0.2])
     fig.update_xaxes(title='Absolute Estimation Error [Ws]', type='log', row=1, col=1)
-    fig.update_xaxes(title='Error Difference [Ws]', type='log', row=1, col=2)
+    fig.update_xaxes(title='Relative Error Difference [%]', row=1, col=2)
     fig.update_layout(legend=dict(yanchor="top", y=1, xanchor="center", x=0.6))
     finalize(fig, fname, show=True, x_scale=0.5, y_scale=1.6)
     
