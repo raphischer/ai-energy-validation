@@ -274,7 +274,7 @@ if __name__ == "__main__":
                         except Exception:
                             print(f'Incorrect input "{manual_input}"!')
                         try:
-                            assert ocr_out[frame_name]['value'] < next['value']
+                            assert ocr_out[frame_name]['value'] <= next['value']
                             ocr_out[frame_name]['manual'] = True
                             error = True
                             # delete and re-write already written ocr file
