@@ -103,7 +103,7 @@ if __name__ == "__main__":
     db['dataset'] = db['dataset'].map(lambda v: 'Language' if 'Puffin' in v else 'Vision') # use 'dataset' as application in the paper
     db_mean = db.groupby(non_number_cols).mean().reset_index()
     db_std = db.groupby(non_number_cols).std().reset_index()
-    db_std.loc[:,num_cols] = np.random.rand(db_std.shape[0], num_cols.size) * 0.1 * db_mean[num_cols] # TODO later replace with actual standard deviation
+    # db_std.loc[:,num_cols] = np.random.rand(db_std.shape[0], num_cols.size) * 0.1 * db_mean[num_cols] # TODO later replace with actual standard deviation
 
     # focus on gpu and split applications
     m_gpu = db_mean[db_mean['architecture'].str.contains('NVIDIA')]
