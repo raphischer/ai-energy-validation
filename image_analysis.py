@@ -3,6 +3,7 @@ import os
 import warnings
 import time
 import shutil
+import joblib
 
 from tqdm import tqdm
 import numpy as np
@@ -170,6 +171,7 @@ def run_complete_ocr(preloaded, ocr_func, preprocessor, manual_correction=False,
         ocr, prep_fr = detect_ocr(frame, ocr_func, preprocessor)
         try:
             assert len(ocr) == 5
+            assert '.' in ocr
             val = float(ocr)
             if idx > 0 and isinstance(ocr_out[prev_name]['value'], float):
                 assert ocr_out[prev_name]['value'] <= val
@@ -192,10 +194,18 @@ def run_complete_ocr(preloaded, ocr_func, preprocessor, manual_correction=False,
             cv2.imwrite(ocr_fname, prep_fr)
     return ocr_out, errors
 
+def sklearn_ocr(img, clf):
+    images = []
+    for x0, x1 in [ [2, 27], [37, 62], [76, 101], [111, 136] ]:
+        images.append( img[10:50, x0:x1].mean(axis=2) )
+    images_np = np.array([i.flatten() for i in images])
+    pred_labels = clf.predict(images_np)
+    return f'{pred_labels[0]}.{pred_labels[1]}{pred_labels[2]}{pred_labels[3]}'
+
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser(description="Match the report of an mlflow experiment with the captured webcam images.")
     argparser.add_argument("--interactive", default=False, help="Whether to run the interactive preprocessing parameter selection.")
-    argparser.add_argument("--tesseract_path", default=None, type=str, help="Path to the tesseract executable (if not in PATH).")
+    argparser.add_argument("--path", default='results/final_random_forest.pkl', type=str, help="Path to an SKLEARN Classifier, or to the tesseract executable (if not in PATH).")
     argparser.add_argument("--tesseract_custom_data", default=r"/home/fischer/repos/Tesseract_sevenSegmentsLetsGoDigital/Trained data", type=str, help="Path to the custom trained data for tesseract.")
     args = argparser.parse_args()
 
@@ -222,19 +232,23 @@ if __name__ == "__main__":
                         shutil.copyfile(os.path.join(uri, fname), frame_names[-1])
             
             # init tesseract
-            if args.tesseract_path:
-                pytesseract.pytesseract.tesseract_cmd = args.tesseract_path
-            try:
-                pytesseract.image_to_string(cv2.imread(frame_names[0]))
-            except Exception as e:
-                print('There was an error with pytesseract - make sure to install tesseract and adjust the path correctly via --tesseract_path')
-                print(e)
-            os.environ['TESSDATA_PREFIX'] = args.tesseract_custom_data
-            ocr_func = lambda im: pytesseract.image_to_string(im, lang='lets', config='--psm 6').replace('\n', '').replace(',', '.').replace(' ', '').replace('-', '')
+            clf = None
+            if args.path:
+                if '.pkl' in args.path:
+                    with open(args.path, "rb") as f:
+                        clf = joblib.load(f)
+                    ocr_func = lambda im: sklearn_ocr(im, clf)
+                else:
+                    pytesseract.pytesseract.tesseract_cmd = args.path
+            if clf is None: # use tesseract
+                pytesseract.image_to_string(cv2.imread(frame_names[0])) # test
+                os.environ['TESSDATA_PREFIX'] = args.tesseract_custom_data
+                ocr_func = lambda im: pytesseract.image_to_string(im, lang='lets', config='--psm 6').replace('\n', '').replace(',', '.').replace(' ', '').replace('-', '')
 
             # use default roi and preprocessing, or finetune interactively
             x1, y1, x2, y2 = (260, 195, 401, 256)
-            preprocessor = lambda im: apply_preprocessing(im, 21, 10, 1, 1)
+            params = (21, 10, 1, 1)
+            preprocessor = lambda im: apply_preprocessing(im, params[0], params[1], params[2], params[3])
             if args.interactive:
                 roi = select_roi(cv2.imread(frame_names[0]))
                 x1, y1, x2, y2 = roi
@@ -253,6 +267,16 @@ if __name__ == "__main__":
                         break
             else:
                 preloaded = [(fname, cv2.imread(fname)[y1:y2, x1:x2]) for fname in frame_names]
+                # best, best_error = None, np.inf
+                # for p0 in [13, 15, 17, 19, 21, 23, 25, 27, 29]:
+                #     for p1 in [3, 4, 5, 6, 7, 8, 9, 10]:
+                #         params = (p0, p1, 1, 1)
+                #         preprocessor = lambda im: apply_preprocessing(im, params[0], params[1], params[2], params[3])
+                ocr_out, errors = run_complete_ocr(preloaded, ocr_func, preprocessor)
+                        # if errors < best_error:
+                        #     best = params
+                        #     best_error = errors
+                print(f'ROI: {(x1, y1, x2, y2)} PARAMS {params} REMAINING ERRORS {errors} ({errors/len(ocr_out)*100:3.2f}%)')
 
             # run complete ocr detection with manual correction
             ocr_out, errors = run_complete_ocr(preloaded, ocr_func, preprocessor, manual_correction=True, write_img=True)

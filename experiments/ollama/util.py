@@ -52,7 +52,7 @@ def get_gpu_name():
 
     return None
 
-def save_webcam_image(fname, device_id=0, seconds=8):
+def save_webcam_image(fname, device_id=0, seconds=10):
     import cv2
     cap = cv2.VideoCapture(device_id, cv2.CAP_V4L2)
     print( f"Saving webcam image (device {device_id}), will take {seconds} seconds..." )
