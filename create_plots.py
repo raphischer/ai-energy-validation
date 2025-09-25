@@ -143,14 +143,14 @@ if __name__ == "__main__":
     for text, col, c in [['External (Ground-Truth)', 'externally_measured', SEL_COLORS[0]], ['Static (ML Impact Calculator)', 'static_estimate', SEL_COLORS[1]], ['Dynamic (CodeCarbon)', 'codecarbon', SEL_COLORS[2]]]: 
         for name, s in [['Vision', 'x'], ['Language', 'circle']]:
             m_db = m_gpu_per_model[m_gpu_per_model['dataset'] == name]
-            s_db = s_gpu_per_model[s_gpu_per_model['dataset'] == name]
+            s_db = s_gpu_per_model.loc[m_db.index]
             for row, col2 in enumerate([f'{col}_per_min', col, f'{col}_diff']):
                 if row < 2 or col != 'externally_measured': # exclude groundtruth (diff = 0)
                     v_m = np.abs(m_db[col2]*1000) if row > 0 and s == 'x' else m_db[col2]
                     v_s = np.abs(s_db[col2]*1000) if row > 0 and s == 'x' else s_db[col2]
                     fig.add_trace(go.Scatter(x=m_db.index, y=v_m, error_y={'type': 'data', 'array': v_s, 'visible': True},
                                          name=text, mode='markers', marker={'symbol': s, 'color': c}, showlegend=(row==0)&(s=='x')),
-                              row=1+row, col=1)
+                                  row=1+row, col=1)
     # Set x-axis to categorical for the second row
     fig.add_annotation(x=5, y=4.6, text="Vision (per 1000 images)", showarrow=False, row=2, col=1)
     fig.add_annotation(x=34, y=4.6, text="Language (per query)", showarrow=False, row=2, col=1)
@@ -167,7 +167,7 @@ if __name__ == "__main__":
     for text, col, c in [['Static', 'static_estimate', SEL_COLORS[1]], ['Dynamic', 'codecarbon', SEL_COLORS[2]]]:
         for name, m_db, s_db, s, o in [['CPU', m_cpu_per_model, s_cpu_per_model, 'circle', 1], ['GPU', m_gpu_per_model, s_gpu_per_model, 'x', 0.4]]:
             m_v = np.abs(m_db[m_db['dataset'] == 'Vision'][f'{col}_diff']*1000)
-            s_v = np.abs(s_db[s_db['dataset'] == 'Vision'][f'{col}_diff']*1000)
+            s_v = np.abs(s_db.loc[m_db.index,f'{col}_diff']*1000)
             fig.add_trace(go.Scatter(
                 x=m_v, y=m_v.index, error_x={'type': 'data', 'array': s_v, 'visible': True, 'thickness': o}, mode='markers', marker={'color': c, 'symbol': s, 'opacity': o},
                 name=name, legendgroup=text, legendgrouptitle={'text': text}
@@ -178,7 +178,6 @@ if __name__ == "__main__":
             x=(cpu_v-m_v)/cpu_v*100, y=m_v.index,
             mode='lines', line={'color': c}, name=text, showlegend=False), row=1, col=2
         )
-    # fig = go.Figure(traces)
     fig.update_yaxes(type='category', range=[-0.8, m_cpu_per_model.shape[0]-0.2])
     fig.update_xaxes(title='Absolute Estimation Error [Ws]', type='log', row=1, col=1)
     fig.update_xaxes(title='Relative Error Difference [%]', row=1, col=2)

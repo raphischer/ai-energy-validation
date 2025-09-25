@@ -11,6 +11,9 @@ conda activate mlflow
 pip install -r requirements.txt
 ```
 
+## OCR
+
+
 If you want to also locally perform the image analysis, you need to install [Tesseract](https://github.com/tesseract-ocr/tesseract). For the energy meter used in the experiments of the paper, we used some custom training data for reading the analogue display:
 ````bash
 sudo apt install tesseract-ocr
