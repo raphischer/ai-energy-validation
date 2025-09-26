@@ -281,12 +281,14 @@ if __name__ == "__main__":
                 # check if result is sufficient
                 cont = input(f'With {len(labels)} labels ({len(labels)/len(all_digits)*100:3.2f}% of the available data), a cross-validated accuracy of {np.mean(acc_score)*100:.3f}% could be achieved. Hit enter to continue labeling, or input "stop" to stop labeling: ')
                 continue_training = cont.lower().strip()!='stop'
+                np.save('results/digits_x.npy', samples)
+                np.save('results/digits_y.npy', labels_enc)
             except ValueError:
                 pass
         # train final classifier
         final_rf = RandomForestClassifier()
         final_rf.fit(samples, labels_enc)
-        joblib.dump(final_rf, os.path.join('results', 'final_random_forest.pkl'))
+        joblib.dump(final_rf, args.ocr)
         ocr_func = lambda im: sklearn_ocr(im, preprocessor, final_rf)
 
     # process each individual run
