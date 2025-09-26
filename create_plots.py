@@ -81,6 +81,7 @@ if __name__ == "__main__":
     print('TOTAL ENERGY CONSUMPTION [KWH]:', db['externally_measured_total'].sum() / 3.6e6)
     db = pd.concat(results, ignore_index=True).drop('datadir', axis=1)
     db = db.rename(mapper=lambda col: col.replace('power_draw', 'codecarbon'), axis=1)
+    db['model'] = db['model'].map(lambda m: m.lower())
     # assign static power based on https://mlco2.github.io/impact/ info for RTX 4090 and intel info
     db['static_power_draw'] = db['architecture'].map(lambda v : 300 if 'NVIDIA' in v else 125)
     db['static_estimate_total'] = db['running_time_total'] * db['static_power_draw']
@@ -172,15 +173,15 @@ if __name__ == "__main__":
                 x=m_v, y=m_v.index, error_x={'type': 'data', 'array': s_v, 'visible': True, 'thickness': o}, mode='markers', marker={'color': c, 'symbol': s, 'opacity': o},
                 name=name, legendgroup=text, legendgrouptitle={'text': text}
             ), row=1, col=1)
-        # add diff between gpu and cpu (m_v from the previous loop)
-        cpu_v = np.abs(m_cpu_per_model[m_cpu_per_model['dataset'] == 'Vision'][f'{col}_diff']*1000)
+        # add rel diff between cpu and gpu (= m_v from the previous loop)
+        cpu_v = np.abs(m_cpu_per_model.loc[m_v.index,f'{col}_diff']*1000)
         fig.add_trace(go.Scatter(
-            x=(cpu_v-m_v)/cpu_v*100, y=m_v.index,
+            x=cpu_v/m_v*100, y=m_v.index,
             mode='lines', line={'color': c}, name=text, showlegend=False), row=1, col=2
         )
     fig.update_yaxes(type='category', range=[-0.8, m_cpu_per_model.shape[0]-0.2])
     fig.update_xaxes(title='Absolute Estimation Error [Ws]', type='log', row=1, col=1)
-    fig.update_xaxes(title='Relative Error Difference [%]', row=1, col=2)
+    fig.update_xaxes(title='Relative Error Difference [%]', type='log', row=1, col=2)
     fig.update_layout(legend=dict(yanchor="top", y=1, xanchor="center", x=0.6))
     finalize(fig, fname, show=True, x_scale=0.5, y_scale=1.6)
     
