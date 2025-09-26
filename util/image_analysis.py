@@ -136,7 +136,7 @@ def interactive_preprocessing(images):
     prep_params = (block_size, c_value, kernel_size, erosion_iterations, w_x1, w_xd, w_xs, w_y1, w_yd)
     return lambda im: apply_preprocessing(im, block_size, c_value, kernel_size, erosion_iterations, w_x1, w_xd, w_xs, w_y1, w_yd), prep_params
 
-def get_training_label(digits):
+def get_manual_training_label(digits):
     n_expected = len(digits)
     digits = np.hstack(digits)
     digits = cv2.resize(digits, (100, int(60/digits.shape[1]*digits.shape[0])), interpolation=cv2.INTER_NEAREST)
@@ -234,7 +234,7 @@ if __name__ == "__main__":
             os.makedirs(img_dir, exist_ok=True)
             # load frame names
             frame_names[report_fname] = []
-            for uri in report['artifact_uri']:
+            for uri in tqdm(report['artifact_uri'], desc=f'copying pictures for {report_fname}', total=report.shape[0]):
                 for fname in ['capture_start.jpg', 'capture_stop.jpg']:
                     full_fname = os.path.join(img_dir, f'{os.path.basename(os.path.dirname(uri))}_{fname}')
                     frame_names[report_fname].append(full_fname)
@@ -263,15 +263,18 @@ if __name__ == "__main__":
         print(f'Loaded pre-trained OCR random forest from {args.ocr}')
     except Exception:
         print(f'Could not load OCR model {args.ocr} - starting interactive labeling to create a new random forest model!')
-        # initilization and hyperparameters
+        # initialization
         continue_training, all_digits, X_data, y_data = True, [], [], []
         for fname in all_fnames:
             all_digits.extend(preprocessor(cv2.imread(fname)[y1:y2, x1:x2])[0])
+        n_digits, remaining = len(all_digits), list(range(len(all_digits)))
         while continue_training:
             # get new labels
-            to_label = [all_digits[idx] for idx in np.random.choice(np.arange(len(all_digits)), size=8)]
-            X_data.extend(to_label)
-            labels = get_training_label(to_label)
+            to_label = np.random.choice(np.array(remaining), size=8)
+            for idx in to_label:
+                X_data.append(all_digits[idx])
+                remaining.remove(idx)
+            labels = get_manual_training_label(X_data[-to_label.size:])
             y_data.extend(labels)
             # train model and check for cross-validated accuracy
             samples, labels = np.array([img.flatten() for img in X_data]), np.array(y_data)
@@ -279,7 +282,7 @@ if __name__ == "__main__":
             try:
                 acc_score = cross_val_score(RandomForestClassifier(), samples, labels_enc)
                 # check if result is sufficient
-                cont = input(f'With {len(labels)} labels ({len(labels)/len(all_digits)*100:3.2f}% of the available data), a cross-validated accuracy of {np.mean(acc_score)*100:.3f}% could be achieved. Hit enter to continue labeling, or input "stop" to stop labeling: ')
+                cont = input(f'With {len(labels)} labels ({len(labels)/n_digits*100:3.2f}% of the available data), a cross-validated accuracy of {np.mean(acc_score)*100:.3f}% could be achieved. Hit enter to continue labeling, or input "stop" to stop labeling: ')
                 continue_training = cont.lower().strip()!='stop'
                 np.save('results/digits_x.npy', samples)
                 np.save('results/digits_y.npy', labels_enc)
