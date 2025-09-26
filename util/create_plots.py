@@ -60,10 +60,11 @@ def parse_param_count(s):
 if __name__ == "__main__":
     # load results
     results = []
-    for fname in os.listdir(os.path.join(os.path.dirname(__file__), 'results')):
+    base_dir = os.path.dirname(os.path.dirname(__file__))
+    for fname in os.listdir(os.path.join(base_dir, 'results')):
         if 'image_analysis.csv' in fname:
-            video_results = pd.read_csv(os.path.join(os.path.dirname(__file__), 'results', fname))
-            db_orig = pd.read_csv(os.path.join(os.path.dirname(__file__), 'results', fname.replace('_image_analysis.csv', '.csv')))
+            video_results = pd.read_csv(os.path.join(base_dir, 'results', fname))
+            db_orig = pd.read_csv(os.path.join(base_dir, 'results', fname.replace('_image_analysis.csv', '.csv')))
             db_orig = db_orig.dropna().set_index('run_id').sort_values('start_time')
             properties = [col.replace('metrics.', '') for col in db_orig.columns if 'metrics' in col]
             db = db_orig.drop(columns=[col for col in db_orig.columns if 'params' not in col and 'metrics' not in col]) # drop everything that was not logged
@@ -74,7 +75,7 @@ if __name__ == "__main__":
             if exp_name == 'ollama': # replace 20.9B 8.2B 1B 3B etc with numbers
                 db['parameters'] = db['parameters'].apply(parse_param_count)
                 db['software'] = 'Ollama 0.11.8'
-            db['externally_measured_total'] = video_results.iloc[1::2]['val_diff'].values * 3.6e6
+            db['externally_measured_total'] = video_results.iloc[1::2]['val_diff'].values * 3.6e6 # take row-wise different and transform kWh to Ws
             results.append(db)
 
     # merge results and all aggregates
@@ -117,7 +118,7 @@ if __name__ == "__main__":
     s_cpu_per_model = s_cpu.sort_values(['batchsize', 'temperature'], ascending=False).groupby('model').first().sort_values('parameters')
 
     # init plotting
-    os.makedirs('figures', exist_ok=True)
+    os.makedirs(os.path.join(base_dir, 'figures'), exist_ok=True)
     os.chdir('figures')
     fig = px.scatter(x=[0, 1, 2], y=[0, 1, 4])
     fig.write_image("dummy.pdf")
