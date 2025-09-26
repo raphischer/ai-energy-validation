@@ -165,7 +165,7 @@
 /home/fischer/repos/ai-energy-validation/results/imagenet_120_2025-09-17_03-24-31/992aa58c3a474cd0b87b877d1b5d45bf_capture_stop.jpg,5.668,5.668,False,0.0030000000000001137,False
 /home/fischer/repos/ai-energy-validation/results/imagenet_120_2025-09-17_03-24-31/0da478a0bc5e42188c6929c223bb1d56_capture_start.jpg,5.670,5.67,False,0.0019999999999997797,False
 /home/fischer/repos/ai-energy-validation/results/imagenet_120_2025-09-17_03-24-31/0da478a0bc5e42188c6929c223bb1d56_capture_stop.jpg,5.683,5.683,False,0.0129999999999999,False
-/home/fischer/repos/ai-energy-validation/results/imagenet_120_2025-09-17_03-24-31/1b0577387970499b8c4ca19f94033a05_capture_start.jpg,5.684,5.684,False,0.001000000000000334,False
+/home/fischer/repos/ai-energy-validation/results/imagenet_120_2025-09-17_03-24-31/1b0577387970499b8c4ca19f94033a05_capture_start.jpg,5.684,5.684,True,0.001000000000000334,False
 /home/fischer/repos/ai-energy-validation/results/imagenet_120_2025-09-17_03-24-31/1b0577387970499b8c4ca19f94033a05_capture_stop.jpg,5.687,5.687,False,0.0030000000000001137,False
 /home/fischer/repos/ai-energy-validation/results/imagenet_120_2025-09-17_03-24-31/70a52e8328464a26abd551eba382fb63_capture_start.jpg,5.689,5.689,False,0.0019999999999997797,False
 /home/fischer/repos/ai-energy-validation/results/imagenet_120_2025-09-17_03-24-31/70a52e8328464a26abd551eba382fb63_capture_stop.jpg,5.701,5.701,False,0.011999999999999567,False
