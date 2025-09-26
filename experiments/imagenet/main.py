@@ -21,7 +21,7 @@ if __name__ == '__main__':
     parser.add_argument("--model", default="EfficientNetB0")
     parser.add_argument("--dataset", default=None)
     parser.add_argument("--datadir", default="/data/d1/fischer_diss/imagenet")
-    parser.add_argument("--batchsize", default=None)
+    parser.add_argument("--batchsize", default=16)
     parser.add_argument("--seconds", type=int, default=120, help="number of seconds to profile model on a subset of the data -- 0 process complete")
     args = parser.parse_args()
     mlflow.log_dict(args.__dict__, 'config.json')

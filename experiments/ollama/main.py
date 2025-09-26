@@ -26,7 +26,7 @@ if __name__ == '__main__':
     parser.add_argument("--model", default="gemma3:1b")
     parser.add_argument('--temperature', type=float, default=0.7)
     parser.add_argument("--nogpu", type=int, default=0)
-    parser.add_argument("--seconds", type=int, default=120, help="number of seconds to profile model on a subset of the data -- 0 process complete")
+    parser.add_argument("--seconds", type=int, default=900, help="number of seconds to profile model on a subset of the data -- 0 process complete")
     args = parser.parse_args()
     mlflow.log_dict(args.__dict__, 'config.json')
     tracker = OfflineEmissionsTracker(log_level='error', country_iso_code="DEU")
