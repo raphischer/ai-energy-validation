@@ -4,6 +4,8 @@
 
 This repository investigates the accuracy of AI energy consumption estimation tools, accompanying the respective [research paper](https://arxiv.org/abs/2509.22092) (preprint, currently under review). While established tools like [CodeCarbon](https://github.com/mlco2/codecarbon) and the [ML Emissions Calculator](https://github.com/mlco2/impact) make environmental impact tracking accessible, they rely on pragmatic assumptions that may lead to substantial inaccuracies.
 
+![Validation Framework Overview](./figures/framework.png)
+
 ## 🧪 Key Findings
 
 - CodeCarbon and related approaches can deviate up to 40% from measured energy consumption
@@ -13,11 +15,12 @@ This repository investigates the accuracy of AI energy consumption estimation to
 ## 📂 Repository Structure
 ```bash
 ├── experiments/        # Code for running AI experiments
-├── results/            # mlflow logs and ground-truth data
 ├── figures/            # Result plots discussed in the paper
-├── util/               # Utility scripts
+├── results/            # mlflow logs and ground-truth data (images and tables)
+├── util/               # Utility scripts for image analysis and plotting
+├── .gitignore          # gitignore
 ├── README.md           # You are here 🚀
-└── requirements.txt    # Libraries for running code
+└── requirements.txt    # Libraries for running experiments and analysis
 ```
 
 ## ⚙️ Installation
