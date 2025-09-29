@@ -11,12 +11,14 @@ This repository investigates the accuracy of AI energy consumption estimation to
 - The validation framework proposed in my work only requires a basic setup and can be extended to other AI evaluations and tools
 
 ## 📂 Repository Structure
+```bash
 ├── experiments/        # Code for running AI experiments
 ├── results/            # mlflow logs and ground-truth data
 ├── figures/            # Result plots discussed in the paper
 ├── util/               # Utility scripts
 ├── README.md           # You are here 🚀
 └── requirements.txt    # Libraries for running code
+```
 
 ## ⚙️ Installation
 
