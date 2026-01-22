@@ -20,9 +20,8 @@ def read_queries(random=True):
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(description="Inference benchmarking with keras models on ImageNet")
+    parser = argparse.ArgumentParser(description="Inference benchmarking with ollama LLMs")
     # data and model input
-    parser.add_argument("--experiment", default="/home/fischer/repos/mlprops/experiments/imagenet/")
     parser.add_argument("--model", default="gemma3:1b")
     parser.add_argument('--temperature', type=float, default=0.7)
     parser.add_argument("--nogpu", type=int, default=0)
@@ -107,8 +106,9 @@ if __name__ == '__main__':
     for key, val in results.items():
         mlflow.log_metric(key, val)
     for f in [emissions, 'capture_start.jpg', 'capture_stop.jpg']:
-        mlflow.log_artifact(f)
-        os.remove(f)
+        if os.path.isfile(f):
+            mlflow.log_artifact(f)
+            os.remove(f)
     mlflow.end_run()
     print(results)
     print('n_samples', n_samples)

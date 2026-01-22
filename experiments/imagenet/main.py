@@ -17,7 +17,6 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description="Inference benchmarking with keras models on ImageNet")
     # data and model input
-    parser.add_argument("--experiment", default="/home/fischer/repos/mlprops/experiments/imagenet/")
     parser.add_argument("--model", default="EfficientNetB0")
     parser.add_argument("--dataset", default=None)
     parser.add_argument("--datadir", default="/data/d1/fischer_diss/imagenet")
@@ -73,7 +72,7 @@ if __name__ == '__main__':
 
     if not args.seconds:
         # evaluate robustness
-        _, corr, _ = load_data_and_model('/data/d1/fischer_diss/imagenet', args.model, variant='corrupted_sample', batch_size=meta["batch_size"])
+        _, corr, _ = load_data_and_model(args.datadir, args.model, variant='corrupted_sample', batch_size=meta["batch_size"])
         corr_res = model.evaluate(corr, return_dict=True)
         for key, val in corr_res.items():
             eval_res[f'corr_{key}'] = val
@@ -96,8 +95,9 @@ if __name__ == '__main__':
     for key, val in eval_res.items():
         mlflow.log_metric(key, val)
     for f in [emissions, 'capture_start.jpg', 'capture_stop.jpg']:
-        mlflow.log_artifact(f)
-        os.remove(f)
+        if os.path.isfile(f):
+            mlflow.log_artifact(f)
+            os.remove(f)
     mlflow.end_run()
     print(eval_res)
     sys.exit(0)
