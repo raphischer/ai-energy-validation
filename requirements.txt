@@ -1,5 +1,5 @@
 # running experiments
-mlflow-skinny
+mlflow-skinny==3.5.1
 numpy
 pandas
 # analysis
