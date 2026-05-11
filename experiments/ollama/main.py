@@ -78,8 +78,8 @@ if __name__ == '__main__':
     # prepare evaluations
     times, n_samples, tokens = [], 0, {'in': [], 'out': []}
     gt_tracker = GroundTruthTracker(verbose=False)
-    gt_tracker.start()
     tracker = EnergyTracker(output_dir=os.getcwd())
+    gt_tracker.start()
     tracker.start()
     save_webcam_image("capture_start.jpg")
 

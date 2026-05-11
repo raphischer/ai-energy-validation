@@ -63,8 +63,8 @@ if __name__ == '__main__':
     # run evaluations while tracking resource consumption
     mlflow.log_param('n_samples', n_samples)
     gt_tracker = GroundTruthTracker(verbose=False)
-    gt_tracker.start()
     tracker = EnergyTracker(output_dir=os.getcwd())
+    gt_tracker.start()
     tracker.start()
     save_webcam_image("capture_start.jpg")
     print_colored_block(f'STARTING ENERGY PROFILING FOR  {args.model.upper()}  batch size {args.batchsize} on gpu {use_gpu}')

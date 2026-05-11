@@ -21,21 +21,7 @@ for m in "${models[@]}"
 do
     for t in "0.1" "0.7"
     do
-        # Keep trying the mlflow run until it succeeds
-        while true
-        do
-            echo "Running model $m on GPU $g ..."
-            timeout $(( $1 * 3 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P temperature=$t ./experiments/ollama
-            
-            # Check if the mlflow run succeeded (exit status 0)
-            if [ $? -eq 0 ]; then
-                echo "Run succeeded for model $m on GPU $g"
-                break  # Exit the loop if succeeded
-            else
-                echo "Run failed for model $m on GPU $g, retrying..."
-            fi
-        done
-
+        mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P temperature=$t ./experiments/ollama
         # Save experiment data to CSV
         mlflow experiments csv -x $exp_id > "results/$exp_name.csv"
     done
