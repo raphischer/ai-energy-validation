@@ -2,7 +2,7 @@
 
 # Get current timestamp for experiment naming
 printf -v now '%(%F_%H-%M-%S)T' -1
-exp_name="imagenet_$1_$now"
+exp_name="imagenet_$now"
 exp_create_str=$(mlflow experiments create -n $exp_name)
 echo $exp_create_str
 exp_id=$(echo $exp_create_str | awk '{print $NF}')
@@ -26,7 +26,7 @@ do
             while true
             do
                 echo "Running model $m on GPU $g ..."
-                timeout $(( $1 * 2 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P seconds=$1 -P batchsize=$b ./experiments/imagenet
+                timeout $(( $1 * 2 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P datadir=/data/d1/fischer_diss/imagenet -P batchsize=$b ./experiments/imagenet
                 
                 # Check if the mlflow run succeeded (exit status 0)
                 if [ $? -eq 0 ]; then

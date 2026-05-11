@@ -2,7 +2,7 @@
 
 # Get current timestamp for experiment naming
 printf -v now '%(%F_%H-%M-%S)T' -1
-exp_name="ollama_$1_$now"
+exp_name="ollama_$now"
 exp_create_str=$(mlflow experiments create -n $exp_name)
 echo $exp_create_str
 exp_id=$(echo $exp_create_str | awk '{print $NF}')
@@ -25,7 +25,7 @@ do
         while true
         do
             echo "Running model $m on GPU $g ..."
-            timeout $(( $1 * 3 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P seconds=$1 -P temperature=$t ./experiments/ollama
+            timeout $(( $1 * 3 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P temperature=$t ./experiments/ollama
             
             # Check if the mlflow run succeeded (exit status 0)
             if [ $? -eq 0 ]; then
