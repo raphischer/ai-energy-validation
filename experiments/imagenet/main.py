@@ -8,7 +8,9 @@ mp.set_start_method("spawn", force=True) # make sure that tensorflow works with 
 import numpy as np
 import mlflow
 import pandas as pd
-from codecarbon import OfflineEmissionsTracker
+
+from lamarr_energy_tracker.ground_truth_tracking import GroundTruthTracker
+from lamarr_energy_tracker.tracker import EnergyTracker
 
 from util import print_colored_block, save_webcam_image
 from batch_sizes import lookup_batch_size, find_ideal_batch_size
@@ -28,8 +30,6 @@ if __name__ == '__main__':
         os.environ['CUDA_VISIBLE_DEVICES'] = '0'
     use_gpu = os.environ['CUDA_VISIBLE_DEVICES']
 
-    # load tracker before importing tensorflow!
-    tracker = OfflineEmissionsTracker(log_level='error', country_iso_code="DEU")
     # identify batch_size and load data
     if args.batchsize:
         batch_size = int(args.batchsize)
@@ -60,14 +60,18 @@ if __name__ == '__main__':
         ds = ds.take(n_batches)
         print(f'Processing {n_batches} batches, per batch expected runtime {t_single_without_init:.4f}s, len ds {len(ds)}')
 
-    # evaluate on validation
+    # run evaluations while tracking resource consumption
     mlflow.log_param('n_samples', n_samples)
-    save_webcam_image("capture_start.jpg")
+    gt_tracker = GroundTruthTracker(verbose=False)
+    gt_tracker.start()
+    tracker = EnergyTracker(output_dir=os.getcwd())
     tracker.start()
+    save_webcam_image("capture_start.jpg")
     print_colored_block(f'STARTING ENERGY PROFILING FOR  {args.model.upper()}  batch size {args.batchsize} on gpu {use_gpu}')
-    eval_res = model.evaluate(ds, return_dict=True)
+    eval_res = model.evaluate(ds, return_dict=True) # evaluate on samples
     print_colored_block(f'STOPPING ENERGY PROFILING FOR  {args.model.upper()}  batch size {args.batchsize} on gpu {use_gpu}', ok=False)
-    tracker.stop()
+    eval_gt = gt_tracker.stop()
+    tracker.stop(print_summary=False)
     save_webcam_image("capture_stop.jpg")
 
     if not args.seconds:
@@ -77,19 +81,21 @@ if __name__ == '__main__':
         for key, val in corr_res.items():
             eval_res[f'corr_{key}'] = val
 
-        # assess model file size
-        modelfile = 'model.weights.h5'
-        model.save_weights(modelfile)
-        eval_res['fsize'] = os.path.getsize(modelfile)
-        os.remove(modelfile)
-
-    # assess resource consumption
+    # aggregate results
     emissions = 'emissions.csv'
     emission_data = pd.read_csv('emissions.csv').to_dict()
-    eval_res['running_time_total'] = emission_data['duration'][0]
-    eval_res['running_time'] = emission_data['duration'][0] / n_samples
-    eval_res['power_draw_total'] = emission_data['energy_consumed'][0] * 3.6e6
-    eval_res['power_draw'] = emission_data['energy_consumed'][0] * 3.6e6 / n_samples
+    eval_res.update({
+    # codecarbon logs
+        'running_time_total': emission_data['duration'][0],
+        'running_time':  emission_data['duration'][0] / n_samples,
+        'power_draw_total': emission_data['energy_consumed'][0] * 3.6e6,
+        'power_draw': emission_data['energy_consumed'][0] * 3.6e6 / n_samples,
+        # ground-truth logs
+        'power_draw_total_gt': eval_gt['energy_consumed'] * 3.6e6,
+        'power_draw_gt': eval_gt['energy_consumed'] * 3.6e6 / n_samples,
+        'running_time_total_gt': eval_gt['duration'],
+        'running_time_gt':  eval_gt['duration'] / n_samples
+    })
 
     # log results & cleanup
     for key, val in eval_res.items():
