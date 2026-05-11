@@ -6,5 +6,5 @@ dependencies:
     - mlflow
     - ollama
     - pandas
-    - codecarbon
+    - lamarr-energy-tracker==0.1.2
     - opencv-python

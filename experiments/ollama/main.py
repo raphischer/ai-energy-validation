@@ -7,7 +7,8 @@ import re
 import numpy as np
 import mlflow
 import pandas as pd
-from codecarbon import OfflineEmissionsTracker
+from lamarr_energy_tracker.ground_truth_tracking import GroundTruthTracker
+from lamarr_energy_tracker.tracker import EnergyTracker
 
 from util import print_colored_block, get_processor_name, get_gpu_name, save_webcam_image
 
@@ -17,6 +18,22 @@ def read_queries(random=True):
     if random:
         conversations = conversations.sample(frac=1)
     return [conv[0]['value'] for conv in conversations['conversations']]
+
+def parse_param_count(s):
+    if isinstance(s, str):
+        s = s.strip()
+        if s.endswith('B'):
+            return float(s[:-1]) * 1e9
+        elif s.endswith('M'):
+            return float(s[:-1]) * 1e6
+        elif s.endswith('K'):
+            return float(s[:-1]) * 1e3
+        else:
+            try:
+                return float(s)
+            except Exception:
+                return s
+    return s
 
 if __name__ == '__main__':
 
@@ -28,7 +45,6 @@ if __name__ == '__main__':
     parser.add_argument("--seconds", type=int, default=900, help="number of seconds to profile model on a subset of the data -- 0 process complete")
     args = parser.parse_args()
     mlflow.log_dict(args.__dict__, 'config.json')
-    tracker = OfflineEmissionsTracker(log_level='error', country_iso_code="DEU")
 
     # log important params
     params = {
@@ -57,14 +73,17 @@ if __name__ == '__main__':
     ollama.pull(args.model)
     resp = ollama.chat(model=args.model, messages=[{"role": "user", "content": f"Can you answer questions?"}])
     mlflow.log_param('file_size', ollama.list().models[0].size)
-    mlflow.log_param('parameters', ollama.list().models[0].details.parameter_size)
+    mlflow.log_param('parameters', parse_param_count(ollama.list().models[0].details.parameter_size))
+
+    # prepare evaluations
+    times, n_samples, tokens = [], 0, {'in': [], 'out': []}
+    gt_tracker = GroundTruthTracker(verbose=False)
+    gt_tracker.start()
+    tracker = EnergyTracker(output_dir=os.getcwd())
+    tracker.start()
+    save_webcam_image("capture_start.jpg")
 
     # run evaluations but watch for time limit
-    times, n_samples, tokens = [], 0, {'in': [], 'out': []}
-
-    # evaluate queries
-    save_webcam_image("capture_start.jpg")
-    tracker.start()
     print_colored_block(f'STARTING ENERGY PROFILING FOR   {args.model.upper()}   temperature {args.temperature} on   {"CPU" if args.nogpu else "GPU"}')
     # run inference
     for query in queries:
@@ -82,23 +101,30 @@ if __name__ == '__main__':
         if args.seconds and remaining < 0:
             break
     print_colored_block(f'STOPPING ENERGY PROFILING FOR   {args.model.upper()}  temperature {args.temperature} on   {"CPU" if args.nogpu else "GPU"}', ok=False)
-    tracker.stop()
+    eval_gt = gt_tracker.stop()
+    tracker.stop(print_summary=False)
     save_webcam_image("capture_stop.jpg")
 
     # add average amount of tokens if there we any errors:
     tokens['in'] += [np.mean(tokens['in'])] * (n_samples - len(tokens['in']))
     tokens['out'] += [np.mean(tokens['out'])] * (n_samples - len(tokens['in']))
 
-    # assess resource consumption
+    # aggregate results
     emissions = 'emissions.csv'
-    emission_data = pd.read_csv('emissions.csv').to_dict()
+    emission_data = pd.read_csv(emissions).to_dict()
     results = {
         'n_tokens_in': sum(tokens['in']),
         'n_tokens_out': sum(tokens['out']),
+        # codecarbon logs
         'running_time_total': emission_data['duration'][0],
         'running_time':  emission_data['duration'][0] / n_samples,
         'power_draw_total': emission_data['energy_consumed'][0] * 3.6e6,
-        'power_draw': emission_data['energy_consumed'][0] * 3.6e6 / n_samples
+        'power_draw': emission_data['energy_consumed'][0] * 3.6e6 / n_samples,
+        # ground-truth logs
+        'power_draw_total_gt': eval_gt['energy_consumed'] * 3.6e6,
+        'power_draw_gt': eval_gt['energy_consumed'] * 3.6e6 / n_samples,
+        'running_time_total_gt': eval_gt['duration'],
+        'running_time_gt':  eval_gt['duration'] / n_samples
     }
 
     # log results & cleanup

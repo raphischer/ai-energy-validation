@@ -52,7 +52,7 @@ def get_gpu_name():
 
     return None
 
-def save_webcam_image(fname, device_id=0, seconds=10):
+def save_webcam_image(fname, device_id=0, seconds=3):
     try:
         import cv2
         cap = cv2.VideoCapture(device_id, cv2.CAP_V4L2)
@@ -73,4 +73,3 @@ def save_webcam_image(fname, device_id=0, seconds=10):
         cap.release()
     except:
         print("⚠️ Failed to capture frame")
-
