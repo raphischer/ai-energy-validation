@@ -140,6 +140,7 @@ if __name__ == '__main__':
 
     # log results & cleanup
     mlflow.log_param('n_samples', len(times))
+    mlflow.log_param('n_errors', len(failed_times))
     for key, val in results.items():
         mlflow.log_metric(key, val)
     for f in [emissions, 'capture_start.jpg', 'capture_stop.jpg']:
