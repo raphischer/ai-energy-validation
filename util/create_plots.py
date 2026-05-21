@@ -34,7 +34,7 @@ def print_init(fname):
     return fname
 
 def finalize(fig, fname, show, x_scale=1, y_scale=1, tshift=0, yshift=0):
-    fig.update_layout(font_family='Open-Sherif', margin={'l': 0, 'r': 0, 'b': 0, 't': tshift},
+    fig.update_layout(font=dict(color='#000000'), font_family='Open-Sherif', margin={'l': 0, 'r': 0, 'b': 0, 't': tshift},
                       width=PLOT_WIDTH*x_scale, height=PLOT_HEIGHT*y_scale)
     fig.update_annotations(yshift=2+yshift) # to adapt tex titles
     if show:
