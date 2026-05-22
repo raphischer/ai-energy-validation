@@ -58,7 +58,7 @@ def parse_param_count(s):
     return s
 
 if __name__ == "__main__":
-    # load results
+    # load old results
     results = []
     base_dir = os.path.dirname(os.path.dirname(__file__))
     for fname in os.listdir(os.path.join(base_dir, 'results', 'old_logs')):
@@ -77,13 +77,13 @@ if __name__ == "__main__":
             db['externally_measured_total'] = video_results.iloc[1::2]['val_diff'].values * 3.6e6 # take row-wise different and transform kWh to Ws
             results.append(db)
     db_old = pd.concat(results, ignore_index=True).drop('datadir', axis=1)
-
+    # load new results
     db = pd.concat([pd.read_csv(os.path.join(base_dir, 'results', fname)) for fname in os.listdir(os.path.join(base_dir, 'results')) if fname.endswith('.csv')], ignore_index=True)
     db = db.drop(columns=[col for col in db.columns if 'params' not in col and 'metrics' not in col]) # drop everything that was not logged
     db = db.rename(columns=lambda col: col.split('.')[1])
     db['software'] = db['dataset'].map(lambda v: 'Ollama 0.6.2' if 'Puffin' in v else 'Keras 3.14.1')
     db['externally_measured_total'] = db['power_draw_total_gt']
-
+    # clean up, remap fields, and print statistics
     for d in [db, db_old]:
         d.rename(mapper=lambda col: col.replace('power_draw', 'codecarbon'), axis=1, inplace=True)
         d['model'] = d['model'].map(lambda m: m.lower())
@@ -129,7 +129,7 @@ if __name__ == "__main__":
     for d in [db, db_old]:
         d['batchsize'] = d['batchsize'].fillna(1) # fill for correct aggregation over runs
         d['temperature'] = d['temperature'].fillna(1) # fill for correct aggregation over runs
-    db_mean = db.groupby(non_number_cols).median().reset_index()
+    db_mean = db.groupby(non_number_cols).mean().reset_index()
     db_std = db.groupby(non_number_cols).std().reset_index()        
     # focus on gpu and split applications
     m_gpu = db_mean[db_mean['architecture'].str.contains('NVIDIA')]
@@ -150,7 +150,7 @@ if __name__ == "__main__":
 
     fname = print_init('opener')
     traces = []
-    for text, col, c in [['Ground-Truth (Digital)', 'externally_camera', SEL_COLORS[0]], ['Static (Calculator)', 'static_estimate', SEL_COLORS[1]], ['Dynamic (CodeCarbon)', 'codecarbon', SEL_COLORS[2]]]:
+    for text, col, c in [['External (Energy Meter)', 'externally_camera', SEL_COLORS[0]], ['Static (Calculator)', 'static_estimate', SEL_COLORS[1]], ['Dynamic (CodeCarbon)', 'codecarbon', SEL_COLORS[2]]]:
         for name, s in [['Vision', 'x'], ['Language', 'circle']]:
             m_db = m_gpu_per_model[m_gpu_per_model['dataset'] == name]
             traces.append(go.Scatter(
@@ -159,7 +159,7 @@ if __name__ == "__main__":
             ))
     fig = go.Figure(traces)
     fig.add_hline(y=0, line_color=SEL_COLORS[0], line_dash="dot")
-    fig.add_annotation(text="Ground-Truth Energy Consumption (Smart Meter)", x=0.99, y=-5, showarrow=False, xref="paper", yref="y")
+    fig.add_annotation(text="Ground-Truth Energy Consumption (Smart Socket)", x=0.99, y=-5, showarrow=False, xref="paper", yref="y")
     fig.update_yaxes(title='Under- / Overestimation [%]', range=[-55, 120])
     fig.update_xaxes(title='Number of Model Parameters', type="log")
     fig.update_layout(legend=dict(yanchor="top", y=1, xanchor="center", x=0.5, orientation='h'))
@@ -167,7 +167,7 @@ if __name__ == "__main__":
 
     fname = print_init('groundtruth_power')
     fig = make_subplots(rows=3, cols=1, shared_xaxes=True, vertical_spacing=0.015)
-    for text, col, c in [['External (Ground-Truth)', 'externally_measured', SEL_COLORS[0]], ['Static (ML Impact Calculator)', 'static_estimate', SEL_COLORS[1]], ['Dynamic (CodeCarbon)', 'codecarbon', SEL_COLORS[2]]]: 
+    for text, col, c in [['External (Smart Socket)', 'externally_measured', SEL_COLORS[0]], ['Static (Calculator)', 'static_estimate', SEL_COLORS[1]], ['Dynamic (CodeCarbon)', 'codecarbon', SEL_COLORS[2]]]: 
         for name, s in [['Vision', 'x'], ['Language', 'circle']]:
             m_db = m_gpu_per_model[m_gpu_per_model['dataset'] == name]
             s_db = s_gpu_per_model.loc[m_db.index]
