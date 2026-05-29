@@ -163,7 +163,7 @@ if __name__ == "__main__":
     fig.update_yaxes(title='Under- / Overestimation [%]', range=[-55, 120])
     fig.update_xaxes(title='Number of Model Parameters', type="log")
     fig.update_layout(legend=dict(yanchor="top", y=1, xanchor="center", x=0.5, orientation='h'))
-    finalize(fig, fname, show=True, x_scale=0.5, y_scale=1.1)
+    finalize(fig, fname, show=True, x_scale=0.5, y_scale=1)
 
     fname = print_init('groundtruth_power')
     fig = make_subplots(rows=3, cols=1, shared_xaxes=True, vertical_spacing=0.015)
@@ -179,15 +179,15 @@ if __name__ == "__main__":
                                          name=text, mode='markers', marker={'symbol': s, 'color': c}, showlegend=(row==0)&(s=='x')),
                                   row=1+row, col=1)
     # Set x-axis to categorical for the second row
-    fig.add_annotation(x=5, y=4.6, text="Vision (per 1000 images)", showarrow=False, row=2, col=1)
-    fig.add_annotation(x=34, y=4.6, text="Language (per query)", showarrow=False, row=2, col=1)
+    fig.add_annotation(x=5, y=4.3, text="Vision (per 1000 images)", showarrow=False, row=2, col=1)
+    fig.add_annotation(x=34, y=4.3, text="Language (per query)", showarrow=False, row=2, col=1)
     fig.add_vline(x=29.5, line_dash="dot")
     fig.update_xaxes(type='category', range=[-0.8, m_gpu_per_model.shape[0]-0.2], row=2, col=1)
     fig.update_yaxes(title='Power Draw [W]', row=1, col=1)
     fig.update_yaxes(title='Energy Draw [Ws]', type='log', row=2, col=1)
-    fig.update_yaxes(title='Absolute Estimation Error [Ws]', type='log', row=3, col=1)
+    fig.update_yaxes(title='Absolute Error [Ws]', type='log', row=3, col=1)
     fig.update_layout(legend=dict(yanchor="top", y=1.0, xanchor="left", x=0, orientation='h'))
-    finalize(fig, fname, show=True, y_scale=2)
+    finalize(fig, fname, show=True, y_scale=1.6)
 
     fname = print_init('cpu_vs_gpu')
     fig = make_subplots(rows=1, cols=2, shared_yaxes=True, horizontal_spacing=0.02)
