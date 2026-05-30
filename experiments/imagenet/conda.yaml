@@ -8,6 +8,6 @@ dependencies:
     - tensorflow-datasets==4.9.10
     - importlib-resources==7.1.0
     - keras==3.14.1
-    - lamarr-energy-tracker==0.1.2
+    - lamarr-energy-tracker==0.1.4
     - opencv-python==4.13.0.92
     - scikit-image==0.26.0

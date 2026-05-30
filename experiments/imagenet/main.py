@@ -62,7 +62,7 @@ if __name__ == '__main__':
 
     # run evaluations while tracking resource consumption
     mlflow.log_param('n_samples', n_samples)
-    gt_tracker = GroundTruthTracker(verbose=False)
+    gt_tracker = GroundTruthTracker(verbose=False, crash_if_unavailable=False) # track ground truth energy and runtime (if available)
     tracker = EnergyTracker(output_dir=os.getcwd())
     gt_tracker.start()
     tracker.start()

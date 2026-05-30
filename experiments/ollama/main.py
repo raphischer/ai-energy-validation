@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
     # prepare evaluations
     times, failed_times, tokens = [], [], {'in': [0], 'out': [0]}
-    gt_tracker = GroundTruthTracker(verbose=False)
+    gt_tracker = GroundTruthTracker(verbose=False, crash_if_unavailable=False) # track ground truth energy and runtime (if available)
     tracker = EnergyTracker(output_dir=os.getcwd())
     gt_tracker.start()
     tracker.start()
