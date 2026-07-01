@@ -34,7 +34,7 @@ def print_init(fname):
     return fname
 
 def finalize(fig, fname, show, x_scale=1, y_scale=1, tshift=0, yshift=0):
-    fig.update_layout(font_family='Open-Sherif', margin={'l': 0, 'r': 0, 'b': 0, 't': tshift},
+    fig.update_layout(font=dict(color='#000000'), font_family='Open-Sherif', margin={'l': 0, 'r': 0, 'b': 0, 't': tshift},
                       width=PLOT_WIDTH*x_scale, height=PLOT_HEIGHT*y_scale)
     fig.update_annotations(yshift=2+yshift) # to adapt tex titles
     if show:
@@ -58,15 +58,14 @@ def parse_param_count(s):
     return s
 
 if __name__ == "__main__":
-    # load results
+    # load old results
     results = []
     base_dir = os.path.dirname(os.path.dirname(__file__))
-    for fname in os.listdir(os.path.join(base_dir, 'results')):
+    for fname in os.listdir(os.path.join(base_dir, 'results', 'old_logs')):
         if 'image_analysis.csv' in fname:
-            video_results = pd.read_csv(os.path.join(base_dir, 'results', fname))
-            db_orig = pd.read_csv(os.path.join(base_dir, 'results', fname.replace('_image_analysis.csv', '.csv')))
+            video_results = pd.read_csv(os.path.join(base_dir, 'results', 'old_logs', fname))
+            db_orig = pd.read_csv(os.path.join(base_dir, 'results', 'old_logs', fname.replace('_image_analysis.csv', '.csv')))
             db_orig = db_orig.dropna().set_index('run_id').sort_values('start_time')
-            properties = [col.replace('metrics.', '') for col in db_orig.columns if 'metrics' in col]
             db = db_orig.drop(columns=[col for col in db_orig.columns if 'params' not in col and 'metrics' not in col]) # drop everything that was not logged
             db = db.rename(columns=lambda col: col.replace('params.', '').replace('metrics.', ''))
             exp_name = fname.split('_')[0]
@@ -77,36 +76,61 @@ if __name__ == "__main__":
                 db['software'] = 'Ollama 0.11.8'
             db['externally_measured_total'] = video_results.iloc[1::2]['val_diff'].values * 3.6e6 # take row-wise different and transform kWh to Ws
             results.append(db)
-
-    # merge results and all aggregates
-    print('TOTAL ENERGY CONSUMPTION [KWH]:', db['externally_measured_total'].sum() / 3.6e6)
-    db = pd.concat(results, ignore_index=True).drop('datadir', axis=1)
-    db = db.rename(mapper=lambda col: col.replace('power_draw', 'codecarbon'), axis=1)
-    db['model'] = db['model'].map(lambda m: m.lower())
-    # assign static power based on https://mlco2.github.io/impact/ info for RTX 4090 and intel info
-    db['static_power_draw'] = db['architecture'].map(lambda v : 300 if 'NVIDIA' in v else 125)
-    db['static_estimate_total'] = db['running_time_total'] * db['static_power_draw']
-    for col in ['static_estimate_total', 'externally_measured_total']:
-        db[col.replace('_total', '')] = db[col] / db['n_samples']
-    # calculate consumption per minute and differences
-    for field in ['static_estimate', 'codecarbon', 'externally_measured']:
-        db[f'{field}_per_min'] = db[f'{field}_total'] / db['running_time_total']
-    for field in ['static_estimate', 'codecarbon']:
-        db[f'{field}_diff'] = db['externally_measured'] - db[field]
-        db[f'{field}_total_diff'] = db['externally_measured_total'] - db[f'{field}_total']
-        db[f'{field}_rel_diff'] = db[f'{field}_diff'] / db['externally_measured'] * 100
-        db[f'{field}_total_rel_diff'] = db[f'{field}_total_diff'] / db['externally_measured_total'] * 100
-        assert np.all(np.isclose(db[f'{field}_rel_diff'], db[f'{field}_total_rel_diff']))
+    db_old = pd.concat(results, ignore_index=True).drop('datadir', axis=1)
+    # load new results
+    db = pd.concat([pd.read_csv(os.path.join(base_dir, 'results', fname)) for fname in os.listdir(os.path.join(base_dir, 'results')) if fname.endswith('.csv')], ignore_index=True)
+    db = db.drop(columns=[col for col in db.columns if 'params' not in col and 'metrics' not in col]) # drop everything that was not logged
+    db = db.rename(columns=lambda col: col.split('.')[1])
+    db['software'] = db['dataset'].map(lambda v: 'Ollama 0.6.2' if 'Puffin' in v else 'Keras 3.14.1')
+    db['externally_measured_total'] = db['power_draw_total_gt']
+    # clean up, remap fields, and print statistics
+    for d in [db, db_old]:
+        d.rename(mapper=lambda col: col.replace('power_draw', 'codecarbon'), axis=1, inplace=True)
+        d['model'] = d['model'].map(lambda m: m.lower())
+        # assign static power based on https://mlco2.github.io/impact/ info for RTX 4090 and intel info
+        d['static_power_draw'] = d['architecture'].map(lambda v : 300 if 'NVIDIA' in v else 125)
+        d['static_estimate_total'] = d['running_time_total'] * d['static_power_draw']
+        for col in ['static_estimate_total', 'externally_measured_total', 'codecarbon_total']:
+            d[col.replace('_total', '')] = d[col] / d['n_samples']
+        # calculate consumption per minute and differences
+        for field in ['static_estimate', 'codecarbon', 'externally_measured']:
+            d[f'{field}_per_min'] = d[f'{field}_total'] / d['running_time_total']
+        for field in ['static_estimate', 'codecarbon']:
+            d[f'{field}_diff'] = d['externally_measured'] - d[field]
+            d[f'{field}_total_diff'] = d['externally_measured_total'] - d[f'{field}_total']
+            d[f'{field}_rel_diff'] = d[f'{field}_diff'] / d['externally_measured'] * 100
+            d[f'{field}_total_rel_diff'] = d[f'{field}_total_diff'] / d['externally_measured_total'] * 100
+            assert np.all(np.isclose(d[f'{field}_rel_diff'], d[f'{field}_total_rel_diff']))
+        d['dataset'] = d['dataset'].map(lambda v: 'Language' if 'Puffin' in v else 'Vision') # use 'dataset' as application in the paper
+        print('TOTAL ENERGY CONSUMPTION [KWH]:', d['externally_measured_total'].sum() / 3.6e6)
+    # merge old results (camera/OCR) with new tracking (smart sockets)
+    non_number_cols = db.drop(db.select_dtypes('number').columns, axis=1).columns.to_list() + ['batchsize', 'temperature']
+    for fields, new in db.groupby(non_number_cols, dropna=False):
+        old = db_old
+        for c, f in zip(non_number_cols, fields):
+            if c == 'temperature' and np.isclose(f, 0.0):
+                f = 0.1 # runs in the past used 0.1 instead of 0.0!
+            if c != 'software' and not pd.isna(f): # software version might not match and nan values should not be filtered
+                old = old[old[c] == f]
+        parts = []
+        for txt, d in [['NEW', new], ['OLD', old]]:
+            parts.append(f"{txt} CC {d['codecarbon_per_min'].mean():5.1f}W EXT {d['externally_measured_per_min'].mean():5.1f}W DIFF {d['externally_measured_per_min'].mean()-d['codecarbon_per_min'].mean():5.1f}W)")
+        print(' --- '.join([" ".join([f'{str(f)[:8]:<8}' for f in fields])] + parts))
+        # add old ground-truth measurement offsets to new logs
+        old_diff = old['externally_measured_per_min'] - old['codecarbon_per_min']
+        db.loc[new.index, 'externally_camera_per_min'] = new['codecarbon_per_min'].values + old_diff.values
+        db.loc[new.index, 'externally_camera_total'] = db.loc[new.index, 'externally_camera_per_min'] * db['running_time_total']
+        db.loc[new.index, 'externally_camera'] = db.loc[new.index, 'externally_camera_total'] / db.loc[new.index, 'n_samples']
+    db['externally_camera_diff'] = db['externally_measured'] - db['externally_camera']
+    db['externally_camera_total_diff'] = db['externally_measured_total'] - db[f'externally_camera_total']
+    db['externally_camera_rel_diff'] = db[f'externally_camera_diff'] / db['externally_measured'] * 100
+    db['externally_camera_total_rel_diff'] = db[f'externally_camera_total_diff'] / db['externally_measured_total'] * 100
     # average over runs
-    num_cols = db.select_dtypes('number').columns
-    non_number_cols = db.drop(num_cols, axis=1).columns.to_list() + ['batchsize', 'temperature']
-    db['batchsize'] = db['batchsize'].fillna(1) # fill for correct aggregation over runs
-    db['temperature'] = db['temperature'].fillna(1) # fill for correct aggregation over runs
-    db['dataset'] = db['dataset'].map(lambda v: 'Language' if 'Puffin' in v else 'Vision') # use 'dataset' as application in the paper
+    for d in [db, db_old]:
+        d['batchsize'] = d['batchsize'].fillna(1) # fill for correct aggregation over runs
+        d['temperature'] = d['temperature'].fillna(1) # fill for correct aggregation over runs
     db_mean = db.groupby(non_number_cols).mean().reset_index()
-    db_std = db.groupby(non_number_cols).std().reset_index()
-    # db_std.loc[:,num_cols] = np.random.rand(db_std.shape[0], num_cols.size) * 0.1 * db_mean[num_cols] # TODO later replace with actual standard deviation
-
+    db_std = db.groupby(non_number_cols).std().reset_index()        
     # focus on gpu and split applications
     m_gpu = db_mean[db_mean['architecture'].str.contains('NVIDIA')]
     m_gpu_per_model = m_gpu.sort_values(['batchsize', 'temperature'], ascending=False).groupby('model').first().sort_values('parameters')
@@ -126,7 +150,7 @@ if __name__ == "__main__":
 
     fname = print_init('opener')
     traces = []
-    for text, col, c in [['ML Impact Calculator (Static)', 'static_estimate', SEL_COLORS[1]], ['CodeCarbon (Dynamic)', 'codecarbon', SEL_COLORS[2]]]:
+    for text, col, c in [['External (Energy Meter)', 'externally_camera', SEL_COLORS[0]], ['Static (Calculator)', 'static_estimate', SEL_COLORS[1]], ['Dynamic (CodeCarbon)', 'codecarbon', SEL_COLORS[2]]]:
         for name, s in [['Vision', 'x'], ['Language', 'circle']]:
             m_db = m_gpu_per_model[m_gpu_per_model['dataset'] == name]
             traces.append(go.Scatter(
@@ -134,15 +158,16 @@ if __name__ == "__main__":
                 name=name, legendgroup=text, legendgrouptitle={'text': text}
             ))
     fig = go.Figure(traces)
-    fig.add_hline(y=0, line_color=SEL_COLORS[0], line_dash="dot", annotation_text="Ground-Truth Energy Consumption")
-    fig.update_yaxes(title='Under- / Overestimation [%]')
+    fig.add_hline(y=0, line_color=SEL_COLORS[0], line_dash="dot")
+    fig.add_annotation(text="Ground-Truth Energy Consumption (Smart Socket)", x=0.99, y=-5, showarrow=False, xref="paper", yref="y")
+    fig.update_yaxes(title='Under- / Overestimation [%]', range=[-55, 120])
     fig.update_xaxes(title='Number of Model Parameters', type="log")
     fig.update_layout(legend=dict(yanchor="top", y=1, xanchor="center", x=0.5, orientation='h'))
-    finalize(fig, fname, show=True, x_scale=0.5)
+    finalize(fig, fname, show=True, x_scale=0.5, y_scale=1)
 
     fname = print_init('groundtruth_power')
     fig = make_subplots(rows=3, cols=1, shared_xaxes=True, vertical_spacing=0.015)
-    for text, col, c in [['External (Ground-Truth)', 'externally_measured', SEL_COLORS[0]], ['Static (ML Impact Calculator)', 'static_estimate', SEL_COLORS[1]], ['Dynamic (CodeCarbon)', 'codecarbon', SEL_COLORS[2]]]: 
+    for text, col, c in [['External (Smart Socket)', 'externally_measured', SEL_COLORS[0]], ['Static (Calculator)', 'static_estimate', SEL_COLORS[1]], ['Dynamic (CodeCarbon)', 'codecarbon', SEL_COLORS[2]]]: 
         for name, s in [['Vision', 'x'], ['Language', 'circle']]:
             m_db = m_gpu_per_model[m_gpu_per_model['dataset'] == name]
             s_db = s_gpu_per_model.loc[m_db.index]
@@ -154,15 +179,15 @@ if __name__ == "__main__":
                                          name=text, mode='markers', marker={'symbol': s, 'color': c}, showlegend=(row==0)&(s=='x')),
                                   row=1+row, col=1)
     # Set x-axis to categorical for the second row
-    fig.add_annotation(x=5, y=4.6, text="Vision (per 1000 images)", showarrow=False, row=2, col=1)
-    fig.add_annotation(x=34, y=4.6, text="Language (per query)", showarrow=False, row=2, col=1)
+    fig.add_annotation(x=5, y=4.3, text="Vision (per 1000 images)", showarrow=False, row=2, col=1)
+    fig.add_annotation(x=34, y=4.3, text="Language (per query)", showarrow=False, row=2, col=1)
     fig.add_vline(x=29.5, line_dash="dot")
     fig.update_xaxes(type='category', range=[-0.8, m_gpu_per_model.shape[0]-0.2], row=2, col=1)
     fig.update_yaxes(title='Power Draw [W]', row=1, col=1)
     fig.update_yaxes(title='Energy Draw [Ws]', type='log', row=2, col=1)
-    fig.update_yaxes(title='Absolute Estimation Error [Ws]', type='log', row=3, col=1)
+    fig.update_yaxes(title='Absolute Error [Ws]', type='log', row=3, col=1)
     fig.update_layout(legend=dict(yanchor="top", y=1.0, xanchor="left", x=0, orientation='h'))
-    finalize(fig, fname, show=True, y_scale=2)
+    finalize(fig, fname, show=True, y_scale=1.6)
 
     fname = print_init('cpu_vs_gpu')
     fig = make_subplots(rows=1, cols=2, shared_yaxes=True, horizontal_spacing=0.02)

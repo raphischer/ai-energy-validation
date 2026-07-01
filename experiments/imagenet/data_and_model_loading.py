@@ -75,9 +75,16 @@ def load_data_and_model(data_path, model_name=None, variant='imagenet2012', batc
     gpu_devices = tf.config.list_physical_devices('GPU')
     for device in gpu_devices:
         tf.config.experimental.set_memory_growth(device, True)
+
+    # too many open files hotfix:
+    import resource
+    low, high = resource.getrlimit(resource.RLIMIT_NOFILE)
+    resource.setrlimit(resource.RLIMIT_NOFILE, (high, high))
     
-    # data
+    # load & prepare data
     extract_dir = os.path.join(data_path, 'extracted')
+    if not os.path.exists(extract_dir):
+        os.makedirs(extract_dir, exist_ok=True)
     config = {'download_config': tfds.download.DownloadConfig(extract_dir=extract_dir, manual_dir=data_path)}
     if variant == 'corrupted_sample':
         ds, __builtins__ = load_corrupted_sample(data_path)

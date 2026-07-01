@@ -2,10 +2,11 @@
 
 # Get current timestamp for experiment naming
 printf -v now '%(%F_%H-%M-%S)T' -1
-exp_name="ollama_$1_$now"
+exp_name="ollama_$now"
 exp_create_str=$(mlflow experiments create -n $exp_name)
 echo $exp_create_str
 exp_id=$(echo $exp_create_str | awk '{print $NF}')
+seed=$RANDOM
 
 # Define model architectures to iterate over # replace 8b with 14b
 models=("gpt-oss:20b" "deepseek-r1:8b" "deepseek-r1:1.5b"
@@ -19,23 +20,9 @@ models=("gpt-oss:20b" "deepseek-r1:8b" "deepseek-r1:1.5b"
 # Loop over all models and GPUs
 for m in "${models[@]}"
 do
-    for t in "0.1" "0.7"
+    for t in "0.0" "0.7"
     do
-        # Keep trying the mlflow run until it succeeds
-        while true
-        do
-            echo "Running model $m on GPU $g ..."
-            timeout $(( $1 * 3 )) mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P seconds=$1 -P temperature=$t ./experiments/ollama
-            
-            # Check if the mlflow run succeeded (exit status 0)
-            if [ $? -eq 0 ]; then
-                echo "Run succeeded for model $m on GPU $g"
-                break  # Exit the loop if succeeded
-            else
-                echo "Run failed for model $m on GPU $g, retrying..."
-            fi
-        done
-
+        mlflow run --experiment-name=$exp_name -e main.py -P model=$m -P temperature=$t -P random=$seed ./experiments/ollama
         # Save experiment data to CSV
         mlflow experiments csv -x $exp_id > "results/$exp_name.csv"
     done

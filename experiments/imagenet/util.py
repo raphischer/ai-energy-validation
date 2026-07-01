@@ -29,7 +29,7 @@ def get_processor_name():
                 return re.sub( ".*model name.*:", "", line,1).strip()
     return ""
 
-def save_webcam_image(fname, device_id=0, seconds=10):
+def save_webcam_image(fname, device_id=0, seconds=3):
     try:
         import cv2
         cap = cv2.VideoCapture(device_id, cv2.CAP_V4L2)

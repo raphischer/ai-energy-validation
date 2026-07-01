@@ -52,14 +52,14 @@ def get_gpu_name():
 
     return None
 
-def save_webcam_image(fname, device_id=0, seconds=10):
+def save_webcam_image(fname, device_id=0, seconds=3):
     try:
         import cv2
         cap = cv2.VideoCapture(device_id, cv2.CAP_V4L2)
         print( f"Saving webcam image (device {device_id}), will take {seconds} seconds..." )
 
         if not cap.isOpened():
-            print("❌ Cannot open webcam")
+            raise RuntimeError("❌ Cannot open webcam")
 
         t0 = time.time()
         while time.time() - t0 < seconds:
@@ -71,6 +71,5 @@ def save_webcam_image(fname, device_id=0, seconds=10):
             time.sleep(1)
         cv2.imwrite(fname, frame)
         cap.release()
-    except:
+    except Exception:
         print("⚠️ Failed to capture frame")
-

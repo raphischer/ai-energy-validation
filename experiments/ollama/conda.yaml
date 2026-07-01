@@ -1,10 +1,10 @@
-name: imagenet
+name: ollama
 dependencies:
   - python=3.11
   - pip
   - pip:
-    - mlflow
-    - ollama
-    - pandas
-    - codecarbon
-    - opencv-python
+    - mlflow-skinny==3.5.1
+    - ollama==0.6.2
+    - pandas==2.3.3
+    - lamarr-energy-tracker==0.1.4
+    - opencv-python==4.13.0.92
