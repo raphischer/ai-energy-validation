@@ -222,7 +222,8 @@ if __name__ == "__main__":
             for i, (text, d_col, c) in enumerate([['Static', 'static_estimate', SEL_COLORS[1]], ['Dynamic', 'codecarbon', SEL_COLORS[2]]]):
                 # Offset x by a small amount to separate the boxes
                 x_vals = [x+0.2 if i==0 else x-0.2] * data.shape[0]  # \u200A is a thin space
-                fig.add_trace(go.Box(x=x_vals, y=data[f'{d_col}_diff'], name=text, marker={'color': c}, showlegend=(col==0)&(p==4.0)), row=2, col=1+col)
+                y_vals = data[f'{d_col}_diff'] if name=='Language' else data[f'{d_col}_diff']*1000
+                fig.add_trace(go.Box(x=x_vals, y=y_vals, name=text, marker={'color': c}, showlegend=(col==0)&(p==4.0)), row=2, col=1+col)
         # Set x-axis tick labels to the actual p values at x=0 and x=1
         fig.update_xaxes(
             title=f'{p_text} ({name})', tickvals=[0, 1], ticktext=[str(v) for v in m_gpu[m_gpu['dataset'] == name][par].unique()], row=2, col=1+col
