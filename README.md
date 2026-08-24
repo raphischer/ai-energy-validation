@@ -3,7 +3,7 @@
 ## 📖 About
 
 While established tools like [CodeCarbon](https://github.com/mlco2/codecarbon) and the [ML Emissions Calculator](https://github.com/mlco2/impact) facilitate the tracking of AI's environmental impacts, they rely on pragmatic assumptions that may lead to substantial inaccuracies.
-This repository validates AI energy estimation tools against external measurements and accompanies the respective [research paper](https://arxiv.org/abs/2509.22092) (preprint, currently under review). 
+This repository validates AI energy estimation tools against external measurements and accompanies the respective [research paper](https://doi.org/10.1515/itit-2025-0031). 
 
 ![Validation Framework Overview](./figures/framework.png)
 
@@ -72,21 +72,21 @@ Once trained, this script processes all camera images with minimal user input. Y
 
 ## Contributing & Citing
 If you conduct your own ground-truth validation experiments, please reach out and let me link them here!
-
-You can use the following reference if you want to cite my work:
+You can cite my work as follows (copy-paste citation and bibtex entry):
 
 ```
-Fischer, R. Ground-Truthing AI Energy Consumption: Validating CodeCarbon Against External Measurements. (2025) doi:10.48550/arXiv.2509.22092.
+Fischer, R. Ground-Truthing AI Energy Consumption: Validating CodeCarbon Against External Measurements. it - Information Technology 2026. https://doi.org/10.1515/itit-2025-0031.
 ```
 
 ```bibtex
-@misc{fischer2025groundtruthingaienergyconsumption,
-      title={Ground-Truthing {AI} Energy Consumption: {Validating} {CodeCarbon} Against External Measurements}, 
-      author={Raphael Fischer},
-      year={2025},
-      eprint={2509.22092},
-      doi = {10.48550/arXiv.2509.22092},
-      url={https://arxiv.org/abs/2509.22092}, 
+@article{fischer_ground-truthing_2026,
+	title = {Ground-Truthing {AI} Energy Consumption: Validating {CodeCarbon} Against External Measurements},
+	url = {https://doi.org/10.1515/itit-2025-0031},
+	doi = {10.1515/itit-2025-0031},
+	journaltitle = {it - Information Technology},
+	publisher = {De Gruyter},
+	author = {Fischer, Raphael},
+	date = {2026-07-10},
 }
 ```
 
